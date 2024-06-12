@@ -41,7 +41,9 @@ struct CA_SearchBarView: View {
                         }
                     }
             }
-            (viewModel.activeSearch ? Text("cancel").foregroundStyle(Color.caBrightOrange)
+            (viewModel.activeSearch ? Text("Cancel")
+                .foregroundStyle(Color.caBrightOrange)
+                .fontWeight(.semibold)
                 .onTapGesture {
                     withAnimation(.bouncy) {
                         viewModel.activeSearch = false
