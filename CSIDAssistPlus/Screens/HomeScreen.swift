@@ -9,54 +9,46 @@ import SwiftUI
 
 struct HomeScreen: View {
     @StateObject private var viewModel = HomeScreenViewModel()
-    @State private var isAddActive: Bool = false
     
     var body: some View {
         GeometryReader(content: { geometry in
             
-            let width = geometry.size.width
-            let height = geometry.size.height
-            
             ZStack {
-                LinearGradient(colors: [Color.white, Color.caLightBlue.opacity(0.7)], startPoint: .bottom, endPoint: .top)
+                Color.white
                     .ignoresSafeArea(.all)
-                VStack (alignment: .center, spacing: 25) {
-                    CA_SearchBarView(viewModel: viewModel, searchFunc: {
-                        print("Search Func Executed!")
-                    }, compWidth: width * 0.25, expandedWidth: width * 0.75, height: height * 0.05)
-                    ZStack {
-                        RoundedRectangle(cornerSize: CGSize(width: height * 0.197, height: height * 0.197))
-                            .fill(Color.white.opacity(0.6))
-                            .frame(width: width * 0.89, height: height * 0.197)
-                        Image("hipsterAnimal")
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .offset(x: width * 0.23, y: viewModel.characterView)
-                            .mask {
-                                RoundedRectangle(cornerSize: CGSize(width: height * 0.197, height: height * 0.197))
-                                    .frame(width: width * 0.89, height: height * 0.197)
-                            }
+                VStack {
+                    CA_SearchBarView(viewModel: viewModel)
+                        .padding(.bottom, 10)
+                    (viewModel.activeSearch ? CA_TopDashboardView(viewModel: viewModel, height: 1.5, width: viewModel.screenWidth) : CA_TopDashboardView(viewModel: viewModel, height: viewModel.screenHeight * 0.197, width: viewModel.screenWidth, cornerRadius: 30))
+                        .padding(.bottom, 10)
+                    ScrollView {
+                        (viewModel.activeSearch ? ForEach((1...10), id: \.self) {_ in
+                            SearchResultCellView(viewModel: viewModel)
+                        } : nil)
                     }
-                    
-                    Spacer()
+
+                    (viewModel.activeSearch ? nil : Spacer())
                 }
             }
-            .overlay(alignment: .bottom) {
-                ZStack {
+            .overlay (alignment: .bottom) {
+                (!viewModel.activeSearch ? ZStack {
                     Circle()
-                        .fill(isAddActive ? Color.caBrightOrange : Color.green).opacity(0.8)
-                        .frame(width: isAddActive ? 35 : 50, height: isAddActive ? 35 : 50)
+                        .fill(viewModel.isAddActive ? Color.caBrightOrange : Color.green).opacity(0.8)
+                        .frame(width: viewModel.isAddActive ? 35 : 50, height: viewModel.isAddActive ? 35 : 50)
                     Image(systemName: "plus")
-                        .font(.system(size: isAddActive ? 20 : 30, weight: .semibold))
+                        .font(.system(size: viewModel.isAddActive ? 20 : 30, weight: .semibold))
                         .foregroundStyle(Color.white)
-                        .rotationEffect(.degrees(isAddActive ? 45 : 0), anchor: .center)
+                        .rotationEffect(.degrees(viewModel.isAddActive ? 45 : 0), anchor: .center)
                 }
                 .onTapGesture {
                     withAnimation(.interactiveSpring) {
-                        isAddActive.toggle()
+                        viewModel.isAddActive.toggle()
                         print(geometry.size.width)
                     }
-                }
+                } : nil)
+            }.onAppear {
+                viewModel.screenWidth = geometry.size.width
+                viewModel.screenHeight = geometry.size.height
             }
         }).ignoresSafeArea(.keyboard)
     }
@@ -64,4 +56,27 @@ struct HomeScreen: View {
 
 #Preview {
     HomeScreen()
+}
+
+struct CA_TopDashboardView: View {
+    @StateObject var viewModel: HomeScreenViewModel
+    var height: CGFloat = 1.5
+    var width: CGFloat = 40
+    var cornerRadius: CGFloat = 0
+    
+    var body: some View {
+        ZStack (alignment: .top) {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .fill(Color.caTurqBlue)
+                .frame(width: width * 0.89, height: height)
+            Image("hipsterAnimal")
+                .resizable()
+                .frame(width: 150, height: viewModel.activeSearch ? 0 : 150)
+                .offset(x: width * 0.23, y: viewModel.characterView)
+                .mask {
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(width: width * 0.89, height: height)
+                }
+        }
+    }
 }

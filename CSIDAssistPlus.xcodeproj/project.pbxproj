@@ -14,6 +14,7 @@
 		EB8B78C02C167CB9003675C4 /* HomeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78BF2C167CB9003675C4 /* HomeScreenViewModel.swift */; };
 		EB8B78C22C16BFD3003675C4 /* CA_CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */; };
 		EB8B78C42C17E8FE003675C4 /* CA_SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */; };
+		EBB5E8D22C1A59DC00B76378 /* SearchResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		EB8B78BF2C167CB9003675C4 /* HomeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewModel.swift; sourceTree = "<group>"; };
 		EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_CarouselView.swift; sourceTree = "<group>"; };
 		EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SearchBarView.swift; sourceTree = "<group>"; };
+		EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */,
 				EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */,
+				EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				EB8B78612C0EBD96003675C4 /* CSIDAssistPlusApp.swift in Sources */,
 				EB8B78C22C16BFD3003675C4 /* CA_CarouselView.swift in Sources */,
 				EB8B78C02C167CB9003675C4 /* HomeScreenViewModel.swift in Sources */,
+				EBB5E8D22C1A59DC00B76378 /* SearchResultCellView.swift in Sources */,
 				EB8B786F2C0EBDC6003675C4 /* HomeScreen.swift in Sources */,
 				EB8B78C42C17E8FE003675C4 /* CA_SearchBarView.swift in Sources */,
 			);
