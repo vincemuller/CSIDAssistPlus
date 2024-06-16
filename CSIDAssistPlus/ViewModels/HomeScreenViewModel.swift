@@ -18,8 +18,44 @@ class HomeScreenViewModel: ObservableObject {
     @Published var isAddActive: Bool = false
     @Published var screenWidth: CGFloat = 0
     @Published var screenHeight: CGFloat = 0
+    @Published var filteredUSDAFoodData: [USDAFoodDetails] = []
     
     func searchFoods() {
-        print("Search Function Executed!")
+
+        var searchTerms = ""
+        var wF = ""
+        
+        if wholeFoodsFilter {
+            wF = "USDAFoodDetails.wholeFood='yes' AND"
+        } else if brandedFoodsFilter {
+            wF = "USDAFoodDetails.wholeFood='no' AND"
+        } else {
+            wF = ""
+        }
+        
+        let filter = searchText
+        
+        filteredUSDAFoodData = []
+        
+        var searchComponents = filter.lowercased().components(separatedBy: " ")
+        searchComponents = searchComponents.filter{$0 != ""}
+        
+        var count = 0
+        while count < searchComponents.count {
+            if count==0 {
+                searchTerms = "\(wF) USDAFoodDetails.searchKeyWords LIKE '%\(searchComponents[count])%' "
+            } else {
+                searchTerms = searchTerms + "AND USDAFoodDetails.searchKeyWords LIKE '%\(searchComponents[count])%'"
+            }
+            count = count + 1
+        }
+        
+        let queryResult = CADatabaseQueryHelper.queryDatabaseGeneralSearch(searchTerms: searchTerms, databasePointer: databasePointer)
+        filteredUSDAFoodData = queryResult
+        
+        guard filteredUSDAFoodData.count != 0 else {
+            return
+        }
     }
+    
 }

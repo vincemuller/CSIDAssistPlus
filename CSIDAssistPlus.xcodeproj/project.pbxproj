@@ -15,6 +15,14 @@
 		EB8B78C22C16BFD3003675C4 /* CA_CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */; };
 		EB8B78C42C17E8FE003675C4 /* CA_SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */; };
 		EBB5E8D22C1A59DC00B76378 /* SearchResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */; };
+		EBB5E8D42C1E15AE00B76378 /* CA_TopDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D32C1E15AE00B76378 /* CA_TopDashboardView.swift */; };
+		EBB5E8D62C1E18AC00B76378 /* CA_SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D52C1E18AC00B76378 /* CA_SearchResultsView.swift */; };
+		EBB5E8D82C1E2A9600B76378 /* CA_AddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D72C1E2A9600B76378 /* CA_AddButtonView.swift */; };
+		EBB5E8DA2C1E6EEF00B76378 /* CA_DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8D92C1E6EEF00B76378 /* CA_DatabaseHelper.swift */; };
+		EBB5E8DC2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8DB2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift */; };
+		EBB5E8DF2C1E70DF00B76378 /* CA_USDAFoodModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */; };
+		EBB5E8E22C1E909C00B76378 /* CSIDAssistFoodDatabase2.db in Resources */ = {isa = PBXBuildFile; fileRef = EBB5E8E12C1E909C00B76378 /* CSIDAssistFoodDatabase2.db */; };
+		EBB5E8E42C1F2AB300B76378 /* CA_Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8E32C1F2AB300B76378 /* CA_Singletons.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +35,14 @@
 		EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_CarouselView.swift; sourceTree = "<group>"; };
 		EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SearchBarView.swift; sourceTree = "<group>"; };
 		EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellView.swift; sourceTree = "<group>"; };
+		EBB5E8D32C1E15AE00B76378 /* CA_TopDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_TopDashboardView.swift; sourceTree = "<group>"; };
+		EBB5E8D52C1E18AC00B76378 /* CA_SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SearchResultsView.swift; sourceTree = "<group>"; };
+		EBB5E8D72C1E2A9600B76378 /* CA_AddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_AddButtonView.swift; sourceTree = "<group>"; };
+		EBB5E8D92C1E6EEF00B76378 /* CA_DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_DatabaseHelper.swift; sourceTree = "<group>"; };
+		EBB5E8DB2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_DatabaseQueryHelper.swift; sourceTree = "<group>"; };
+		EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_USDAFoodModels.swift; sourceTree = "<group>"; };
+		EBB5E8E12C1E909C00B76378 /* CSIDAssistFoodDatabase2.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = CSIDAssistFoodDatabase2.db; path = ../../../../../CSIDAssistFoodDatabase2.db; sourceTree = "<group>"; };
+		EBB5E8E32C1F2AB300B76378 /* CA_Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_Singletons.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +75,7 @@
 		EB8B785F2C0EBD96003675C4 /* CSIDAssistPlus */ = {
 			isa = PBXGroup;
 			children = (
+				EBB5E8DD2C1E708700B76378 /* DatabaseManagement */,
 				EB8B78C82C194F13003675C4 /* ViewModels */,
 				EB8B78C72C194F04003675C4 /* Models */,
 				EB8B78C62C194EF9003675C4 /* Screens */,
@@ -66,6 +83,7 @@
 				EB8B78602C0EBD96003675C4 /* CSIDAssistPlusApp.swift */,
 				EB8B78642C0EBD98003675C4 /* Assets.xcassets */,
 				EB8B78662C0EBD98003675C4 /* Preview Content */,
+				EBB5E8E32C1F2AB300B76378 /* CA_Singletons.swift */,
 			);
 			path = CSIDAssistPlus;
 			sourceTree = "<group>";
@@ -84,6 +102,9 @@
 				EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */,
 				EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */,
 				EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */,
+				EBB5E8D32C1E15AE00B76378 /* CA_TopDashboardView.swift */,
+				EBB5E8D52C1E18AC00B76378 /* CA_SearchResultsView.swift */,
+				EBB5E8D72C1E2A9600B76378 /* CA_AddButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -99,6 +120,7 @@
 		EB8B78C72C194F04003675C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -109,6 +131,16 @@
 				EB8B78BF2C167CB9003675C4 /* HomeScreenViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EBB5E8DD2C1E708700B76378 /* DatabaseManagement */ = {
+			isa = PBXGroup;
+			children = (
+				EBB5E8E12C1E909C00B76378 /* CSIDAssistFoodDatabase2.db */,
+				EBB5E8D92C1E6EEF00B76378 /* CA_DatabaseHelper.swift */,
+				EBB5E8DB2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift */,
+			);
+			path = DatabaseManagement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB8B78682C0EBD98003675C4 /* Preview Assets.xcassets in Resources */,
+				EBB5E8E22C1E909C00B76378 /* CSIDAssistFoodDatabase2.db in Resources */,
 				EB8B78652C0EBD98003675C4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,11 +214,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBB5E8DC2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift in Sources */,
+				EBB5E8DA2C1E6EEF00B76378 /* CA_DatabaseHelper.swift in Sources */,
+				EBB5E8E42C1F2AB300B76378 /* CA_Singletons.swift in Sources */,
 				EB8B78612C0EBD96003675C4 /* CSIDAssistPlusApp.swift in Sources */,
+				EBB5E8D82C1E2A9600B76378 /* CA_AddButtonView.swift in Sources */,
 				EB8B78C22C16BFD3003675C4 /* CA_CarouselView.swift in Sources */,
 				EB8B78C02C167CB9003675C4 /* HomeScreenViewModel.swift in Sources */,
+				EBB5E8DF2C1E70DF00B76378 /* CA_USDAFoodModels.swift in Sources */,
+				EBB5E8D62C1E18AC00B76378 /* CA_SearchResultsView.swift in Sources */,
 				EBB5E8D22C1A59DC00B76378 /* SearchResultCellView.swift in Sources */,
 				EB8B786F2C0EBDC6003675C4 /* HomeScreen.swift in Sources */,
+				EBB5E8D42C1E15AE00B76378 /* CA_TopDashboardView.swift in Sources */,
 				EB8B78C42C17E8FE003675C4 /* CA_SearchBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

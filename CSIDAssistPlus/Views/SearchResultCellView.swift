@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchResultCellView: View {
+struct CA_SearchResultCellView: View {
     @StateObject var viewModel: HomeScreenViewModel
     var category: String = ""
     var brandName: String = ""
@@ -19,15 +19,17 @@ struct SearchResultCellView: View {
     var body: some View {
         let width = viewModel.screenWidth
 //        let height = viewModel.screenHeight
-        
-        RoundedRectangle(cornerRadius: 30)
-            .fill(Color.gray.opacity(0.15))
-            .frame(width: width - 30, height: 100)
+        ZStack {
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color.gray.opacity(0.15))
+                .frame(width: width - 30, height: 100)
+            Text(description)
+        }
     }
 }
 
 #Preview {
-    SearchResultCellView(viewModel: HomeScreenViewModel(), category: "Chips, Crackers, Nuts, & Snacks", brandName: "Dot's", description: "Homestyle Pretzels", netCarbs: "15.0g", totalSugar: "0.0g", totalStarch: "15.0g")
+    CA_SearchResultCellView(viewModel: HomeScreenViewModel(), category: "Chips, Crackers, Nuts, & Snacks", brandName: "Dot's", description: "Homestyle Pretzels", netCarbs: "15.0g", totalSugar: "0.0g", totalStarch: "15.0g")
 }
 
 struct CA_ScopeButtonView: View {
@@ -52,6 +54,10 @@ struct CA_ScopeButtonView: View {
                         viewModel.allFoodsFilter = false
                         viewModel.brandedFoodsFilter = false
                     }
+                    
+                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                        viewModel.searchFoods()
+                    }
                 }
             })
             Button(action: {print("All Foods")}, label: {
@@ -71,6 +77,10 @@ struct CA_ScopeButtonView: View {
                         viewModel.wholeFoodsFilter = false
                         viewModel.brandedFoodsFilter = false
                     }
+                    
+                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                        viewModel.searchFoods()
+                    }
                 }
             })
             Button(action: {print("Branded Foods")}, label: {
@@ -89,6 +99,10 @@ struct CA_ScopeButtonView: View {
                         viewModel.brandedFoodsFilter.toggle()
                         viewModel.wholeFoodsFilter = false
                         viewModel.allFoodsFilter = false
+                    }
+                    
+                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                        viewModel.searchFoods()
                     }
                 }
             })

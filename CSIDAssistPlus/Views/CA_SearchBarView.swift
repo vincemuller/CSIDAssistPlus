@@ -26,39 +26,61 @@ struct CA_SearchBarView: View {
                         (!viewModel.expandSearch ? Text("SEARCH").foregroundStyle(Color.black).opacity(0.3) : nil)
                     }
                     .overlay(alignment: .leading) {
-                        (viewModel.expandSearch && viewModel.searchText.isEmpty ? CA_CarouselView() : nil)
-                            .padding(.horizontal, 30)
+                        HStack (spacing: 0) {
+                            (viewModel.expandSearch ?
+                             Image(systemName: "arrow.left")
+                                .font(.system(size: 20, weight: .semibold))
+                                .offset(x: 7)
+                                .foregroundStyle(Color.caTurqBlue)
+                                .onTapGesture {
+                                    withAnimation(.bouncy) {
+                                        viewModel.expandSearch = false
+                                        isFocused = false
+                                        viewModel.characterView = 150
+                                        viewModel.activeSearch = false
+                                        viewModel.allFoodsFilter = true
+                                        viewModel.brandedFoodsFilter = false
+                                        viewModel.wholeFoodsFilter = false
+                                        viewModel.searchText = ""
+                                    }
+                                } : nil)
+                            (viewModel.expandSearch && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
+                        }
                     }
-                HStack (spacing: 0) {
-                    TextField("", text: $viewModel.searchText)
-                        .foregroundColor(Color.black)
-                        .padding()
-                        .frame(width: viewModel.expandSearch ? expandedWidth - 40 : compWidth, height: height)
-                        .focused($isFocused)
-                        .onTapGesture {
-                            withAnimation(.bouncy) {
-                                viewModel.expandSearch = true
-                                viewModel.characterView = 20
-                                isFocused = true
-                            }
+                    .overlay(alignment: .trailing) {
+                        (!viewModel.searchText.isEmpty ?
+                         Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(Color.caLightOrange)
+                            .offset(x: -7)
+                            .onTapGesture {
+                                withAnimation(.bouncy) {
+                                    viewModel.searchText = ""
+                                    isFocused = true
+                                }
+                            } : nil)
+                    }
+                
+                TextField("", text: $viewModel.searchText)
+                    .foregroundColor(Color.black)
+                    .frame(width: viewModel.expandSearch ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
+                    .focused($isFocused)
+                    .padding(.horizontal, 5)
+                    .onTapGesture {
+                        withAnimation(.bouncy) {
+                            viewModel.expandSearch = true
+                            viewModel.characterView = 20
+                            isFocused = true
                         }
-                        .onSubmit {
-                            withAnimation {
-                                viewModel.searchFoods()
-                                viewModel.activeSearch = true
-                            }
+                    }
+                    .onSubmit {
+                        withAnimation {
+                            viewModel.searchFoods()
+                            viewModel.activeSearch = true
                         }
-                    (!viewModel.searchText.isEmpty ?
-                     Image(systemName: "xmark.circle.fill")
-                        .foregroundStyle(Color.caLightOrange)
-                        .padding(.horizontal, -15)
-                        .onTapGesture {
-                            withAnimation(.bouncy) {
-                                viewModel.searchText = ""
-                            }
-                        } : nil)
-                }
+                    }
             }
+            
         }
         (viewModel.expandSearch ? CA_ScopeButtonView(viewModel: viewModel) : nil)
     }
