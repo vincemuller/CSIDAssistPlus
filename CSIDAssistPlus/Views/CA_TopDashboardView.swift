@@ -12,7 +12,6 @@ struct CA_TopDashboardView: View {
     @StateObject var viewModel: HomeScreenViewModel
     
     var body: some View {
-        
         let height = (viewModel.activeSearch ? 1.5 : viewModel.screenHeight * 0.197)
         let width = viewModel.screenWidth * 0.89
         let cornerRadius: CGFloat = (viewModel.activeSearch ? 0 : 30)

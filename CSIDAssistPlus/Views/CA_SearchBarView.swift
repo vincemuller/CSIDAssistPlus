@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct CA_SearchBarView: View {
     @StateObject var viewModel: HomeScreenViewModel
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        
         let compWidth = viewModel.screenWidth * 0.25
         let expandedWidth = viewModel.screenWidth * 0.90
         let height = viewModel.screenHeight * 0.05
 
         HStack {
             ZStack {
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(viewModel.expandSearch ? Color.white : Color.clear)
+                    .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
                 RoundedRectangle(cornerRadius: 30)
                     .stroke(viewModel.expandSearch ? Color.caTurqBlue : Color.gray.opacity(0.2))
                     .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
@@ -51,7 +54,7 @@ struct CA_SearchBarView: View {
                         (!viewModel.searchText.isEmpty ?
                          Image(systemName: "xmark.circle.fill")
                             .font(.system(size: 20))
-                            .foregroundStyle(Color.caLightOrange)
+                            .foregroundStyle(Color.caRed)
                             .offset(x: -7)
                             .onTapGesture {
                                 withAnimation(.bouncy) {
@@ -74,9 +77,9 @@ struct CA_SearchBarView: View {
                         }
                     }
                     .onSubmit {
-                        withAnimation {
-                            viewModel.searchFoods()
+                        withAnimation(.linear.speed(2.5)) {
                             viewModel.activeSearch = true
+                            viewModel.searchFoods()
                         }
                     }
             }

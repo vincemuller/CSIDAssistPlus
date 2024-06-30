@@ -17,7 +17,7 @@ struct CA_AddButtonView: View {
         
         (!viewModel.activeSearch ? ZStack {
             Circle()
-                .fill(active ? Color.caBrightOrange : Color.green).opacity(0.8)
+                .fill(active ? Color.caRed : Color.green).opacity(0.8)
                 .frame(width: active ? 35 : 50, height: active ? 35 : 50)
             Image(systemName: "plus")
                 .font(.system(size: active ? 20 : 30, weight: .semibold))

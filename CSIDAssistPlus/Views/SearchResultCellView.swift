@@ -24,6 +24,7 @@ struct CA_SearchResultCellView: View {
                 .fill(Color.gray.opacity(0.15))
                 .frame(width: width - 30, height: 100)
             Text(description)
+                .foregroundStyle(Color.black)
         }
     }
 }

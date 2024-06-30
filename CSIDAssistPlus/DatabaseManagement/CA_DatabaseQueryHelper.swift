@@ -10,7 +10,7 @@ import SQLite3
 import Foundation
 
 class CADatabaseQueryHelper {
-
+    
     static func dataFormater(value: String) -> String {
         guard value != "N/A" else {
             let formattedValue = "N/A"
@@ -22,6 +22,14 @@ class CADatabaseQueryHelper {
         let formattedValue = String(format: "%.1f",floatValue)
         
         return formattedValue
+    }
+    
+    static func sqlColumnProcessing(queryStatement: UnsafePointer<UInt8>!) -> String {
+        if let result = queryStatement {
+            return String(cString: result)
+        } else {
+            return ""
+        }
     }
     
     static func queryiCloudFavs(searchTerms: String, databasePointer: OpaquePointer?) -> [USDAFoodDetails] {
@@ -39,65 +47,31 @@ class CADatabaseQueryHelper {
           &queryStatement,
           nil
         ) == SQLITE_OK {
-            
+            var searchKeyWords: String
+            var fdicID: Int
             var brandOwner: String
             var brandName: String
             var brandCategory: String
             var descr: String
+            var servingSize: Float
+            var servingSizeUnit: String
             var ingredients: String
             var wholeFoods: String
             
           while (sqlite3_step(queryStatement) == SQLITE_ROW) {
               
-              let searchKeyWords = String(cString: sqlite3_column_text(queryStatement, 0))
-            
-              let fdicID = Int(sqlite3_column_int(queryStatement, 1))
+              searchKeyWords    = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 0))
+              fdicID            = Int(sqlite3_column_int(queryStatement, 1))
+              brandOwner        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 2))
+              brandName         = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 3))
+              brandCategory     = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 4))
+              descr             = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 5))
+              servingSize       = Float(sqlite3_column_double(queryStatement, 6))
+              servingSizeUnit   = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 7))
+              ingredients       = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 8))
+              wholeFoods        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 9))
               
-              if let queryResultBrandOwner = sqlite3_column_text(queryStatement, 2) {
-                  brandOwner    = String(cString: queryResultBrandOwner)
-              } else {
-                  brandOwner    = ""
-              }
-              
-              if let queryResultBrandName = sqlite3_column_text(queryStatement, 3) {
-                  brandName     = String(cString: queryResultBrandName)
-              } else {
-                  brandName     = ""
-              }
-              
-              if let queryResultBrandedCategory = sqlite3_column_text(queryStatement, 4) {
-                  brandCategory = String(cString: queryResultBrandedCategory)
-              } else {
-                  brandCategory = ""
-              }
-              
-              if let queryResultDescription = sqlite3_column_text(queryStatement, 5) {
-                  descr   = String(cString: queryResultDescription)
-              } else {
-                  descr   = ""
-              }
-              
-              let servingSize = Float(sqlite3_column_double(queryStatement, 6))
-              
-              let servingSizeUnit = String(cString: sqlite3_column_text(queryStatement, 7))
-              
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 8) {
-                  ingredients   = String(cString: queryResultIngredients)
-              } else {
-                  ingredients   = ""
-              }
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 9) {
-                  wholeFoods   = String(cString: queryResultIngredients)
-              } else {
-                  wholeFoods   = ""
-              }
-              
-              
-              let tempUSDAData  = [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)]
-              
-              filteredUSDAFoodData.append(contentsOf: tempUSDAData)
+              filteredUSDAFoodData.append(contentsOf: [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)])
             }
         } else {
             let errorMessage    = String(cString: sqlite3_errmsg(databasePointer))
@@ -114,7 +88,7 @@ class CADatabaseQueryHelper {
             SELECT searchKeyWords, fdicID, brandOwner, brandName, brandedFoodCategory, description, servingSize, servingSizeUnit, ingredients, wholeFood FROM USDAFoodDetails
             WHERE \(searchTerms)
             ORDER BY wholeFood DESC, length(description)
-            LIMIT 1000;
+            LIMIT 500;
             """
         
         if sqlite3_prepare_v2(
@@ -125,64 +99,31 @@ class CADatabaseQueryHelper {
           nil
         ) == SQLITE_OK {
             
+            var searchKeyWords: String
+            var fdicID: Int
             var brandOwner: String
             var brandName: String
             var brandCategory: String
             var descr: String
+            var servingSize: Float
+            var servingSizeUnit: String
             var ingredients: String
             var wholeFoods: String
             
           while (sqlite3_step(queryStatement) == SQLITE_ROW) {
               
-              let searchKeyWords = String(cString: sqlite3_column_text(queryStatement, 0))
-            
-              let fdicID = Int(sqlite3_column_int(queryStatement, 1))
+              searchKeyWords    = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 0))
+              fdicID            = Int(sqlite3_column_int(queryStatement, 1))
+              brandOwner        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 2))
+              brandName         = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 3))
+              brandCategory     = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 4))
+              descr             = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 5))
+              servingSize       = Float(sqlite3_column_double(queryStatement, 6))
+              servingSizeUnit   = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 7))
+              ingredients       = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 8))
+              wholeFoods        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 9))
               
-              if let queryResultBrandOwner = sqlite3_column_text(queryStatement, 2) {
-                  brandOwner    = String(cString: queryResultBrandOwner)
-              } else {
-                  brandOwner    = ""
-              }
-              
-              if let queryResultBrandName = sqlite3_column_text(queryStatement, 3) {
-                  brandName     = String(cString: queryResultBrandName)
-              } else {
-                  brandName     = ""
-              }
-              
-              if let queryResultBrandedCategory = sqlite3_column_text(queryStatement, 4) {
-                  brandCategory = String(cString: queryResultBrandedCategory)
-              } else {
-                  brandCategory = ""
-              }
-              
-              if let queryResultDescription = sqlite3_column_text(queryStatement, 5) {
-                  descr   = String(cString: queryResultDescription)
-              } else {
-                  descr   = ""
-              }
-              
-              let servingSize = Float(sqlite3_column_double(queryStatement, 6))
-              
-              let servingSizeUnit = String(cString: sqlite3_column_text(queryStatement, 7))
-              
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 8) {
-                  ingredients   = String(cString: queryResultIngredients)
-              } else {
-                  ingredients   = ""
-              }
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 9) {
-                  wholeFoods   = String(cString: queryResultIngredients)
-              } else {
-                  wholeFoods   = ""
-              }
-              
-              
-              let tempUSDAData  = [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)]
-              
-              filteredUSDAFoodData.append(contentsOf: tempUSDAData)
+              filteredUSDAFoodData.append(contentsOf: [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)])
             }
         } else {
             let errorMessage    = String(cString: sqlite3_errmsg(databasePointer))
@@ -202,7 +143,7 @@ class CADatabaseQueryHelper {
             \(searchTerm)
             \(wholeFoodsFilter)
             ORDER BY wholeFood DESC, length(description)
-            LIMIT 1000;
+            LIMIT 500;
             """
         if sqlite3_prepare_v2(
           databasePointer,
@@ -211,64 +152,31 @@ class CADatabaseQueryHelper {
           &queryStatement,
           nil
         ) == SQLITE_OK {
-            
+            var searchKeyWords: String
+            var fdicID: Int
             var brandOwner: String
             var brandName: String
             var brandCategory: String
             var descr: String
+            var servingSize: Float
+            var servingSizeUnit: String
             var ingredients: String
             var wholeFoods: String
             
           while (sqlite3_step(queryStatement) == SQLITE_ROW) {
               
-              let searchKeyWords = String(cString: sqlite3_column_text(queryStatement, 0))
-            
-              let fdicID = Int(sqlite3_column_int(queryStatement, 1))
+              searchKeyWords    = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 0))
+              fdicID            = Int(sqlite3_column_int(queryStatement, 1))
+              brandOwner        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 2))
+              brandName         = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 3))
+              brandCategory     = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 4))
+              descr             = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 5))
+              servingSize       = Float(sqlite3_column_double(queryStatement, 6))
+              servingSizeUnit   = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 7))
+              ingredients       = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 8))
+              wholeFoods        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 9))
               
-              if let queryResultBrandOwner = sqlite3_column_text(queryStatement, 2) {
-                  brandOwner    = String(cString: queryResultBrandOwner)
-              } else {
-                  brandOwner    = ""
-              }
-              
-              if let queryResultBrandName = sqlite3_column_text(queryStatement, 3) {
-                  brandName     = String(cString: queryResultBrandName)
-              } else {
-                  brandName     = ""
-              }
-              
-              if let queryResultBrandedCategory = sqlite3_column_text(queryStatement, 4) {
-                  brandCategory = String(cString: queryResultBrandedCategory)
-              } else {
-                  brandCategory = ""
-              }
-              
-              if let queryResultDescription = sqlite3_column_text(queryStatement, 5) {
-                  descr   = String(cString: queryResultDescription)
-              } else {
-                  descr   = ""
-              }
-              
-              let servingSize = Float(sqlite3_column_double(queryStatement, 6))
-              
-              let servingSizeUnit = String(cString: sqlite3_column_text(queryStatement, 7))
-              
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 8) {
-                  ingredients   = String(cString: queryResultIngredients)
-              } else {
-                  ingredients   = ""
-              }
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 9) {
-                  wholeFoods   = String(cString: queryResultIngredients)
-              } else {
-                  wholeFoods   = ""
-              }
-              
-              let tempUSDAData  = [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)]
-              
-              filteredUSDAFoodData.append(contentsOf: tempUSDAData)
+              filteredUSDAFoodData.append(contentsOf: [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)])
             }
         } else {
             let errorMessage    = String(cString: sqlite3_errmsg(databasePointer))
@@ -490,65 +398,31 @@ class CADatabaseQueryHelper {
           &queryStatement,
           nil
         ) == SQLITE_OK {
-            
+            var searchKeyWords: String
+            var fdicID: Int
             var brandOwner: String
             var brandName: String
             var brandCategory: String
             var descr: String
+            var servingSize: Float
+            var servingSizeUnit: String
             var ingredients: String
             var wholeFoods: String
             
           while (sqlite3_step(queryStatement) == SQLITE_ROW) {
               
-              let searchKeyWords = String(cString: sqlite3_column_text(queryStatement, 0))
-            
-              let fdicID = Int(sqlite3_column_int(queryStatement, 1))
+              searchKeyWords    = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 0))
+              fdicID            = Int(sqlite3_column_int(queryStatement, 1))
+              brandOwner        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 2))
+              brandName         = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 3))
+              brandCategory     = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 4))
+              descr             = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 5))
+              servingSize       = Float(sqlite3_column_double(queryStatement, 6))
+              servingSizeUnit   = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 7))
+              ingredients       = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 8))
+              wholeFoods        = sqlColumnProcessing(queryStatement: sqlite3_column_text(queryStatement, 9))
               
-              if let queryResultBrandOwner = sqlite3_column_text(queryStatement, 2) {
-                  brandOwner    = String(cString: queryResultBrandOwner)
-              } else {
-                  brandOwner    = ""
-              }
-              
-              if let queryResultBrandName = sqlite3_column_text(queryStatement, 3) {
-                  brandName     = String(cString: queryResultBrandName)
-              } else {
-                  brandName     = ""
-              }
-              
-              if let queryResultBrandedCategory = sqlite3_column_text(queryStatement, 4) {
-                  brandCategory = String(cString: queryResultBrandedCategory)
-              } else {
-                  brandCategory = ""
-              }
-              
-              if let queryResultDescription = sqlite3_column_text(queryStatement, 5) {
-                  descr   = String(cString: queryResultDescription)
-              } else {
-                  descr   = ""
-              }
-              
-              let servingSize = Float(sqlite3_column_double(queryStatement, 6))
-              
-              let servingSizeUnit = String(cString: sqlite3_column_text(queryStatement, 7))
-              
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 8) {
-                  ingredients   = String(cString: queryResultIngredients)
-              } else {
-                  ingredients   = ""
-              }
-              
-              if let queryResultIngredients = sqlite3_column_text(queryStatement, 9) {
-                  wholeFoods   = String(cString: queryResultIngredients)
-              } else {
-                  wholeFoods   = ""
-              }
-              
-              
-              let tempUSDAData  = [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)]
-              
-              filteredUSDAFoodData.append(contentsOf: tempUSDAData)
+              filteredUSDAFoodData.append(contentsOf: [USDAFoodDetails(searchKeyWords: searchKeyWords, fdicID: fdicID, brandOwner: brandOwner, brandName: brandName, brandedFoodCategory: brandCategory, description: descr, servingSize: servingSize, servingSizeUnit: servingSizeUnit, ingredients: ingredients, wholeFood: wholeFoods)])
             }
         } else {
             let errorMessage    = String(cString: sqlite3_errmsg(databasePointer))

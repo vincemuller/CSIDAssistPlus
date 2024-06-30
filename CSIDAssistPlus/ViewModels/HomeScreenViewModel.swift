@@ -10,6 +10,7 @@ import Foundation
 class HomeScreenViewModel: ObservableObject {
     @Published var expandSearch: Bool = false
     @Published var activeSearch: Bool = false
+    @Published var inProgress: Bool = false
     @Published var characterView: CGFloat = 150
     @Published var searchText: String = ""
     @Published var wholeFoodsFilter: Bool = false
@@ -19,9 +20,13 @@ class HomeScreenViewModel: ObservableObject {
     @Published var screenWidth: CGFloat = 0
     @Published var screenHeight: CGFloat = 0
     @Published var filteredUSDAFoodData: [USDAFoodDetails] = []
+    @Published var savedLists: [String] = ["Safe Foods", "Unsafe Foods", "Favorite Foods"]
+    @Published var calendarRange: [Int] = [1,5]
+    @Published var dashboardWeek = Date.now
     
     func searchFoods() {
-
+        inProgress.toggle()
+        
         var searchTerms = ""
         var wF = ""
         
@@ -50,12 +55,20 @@ class HomeScreenViewModel: ObservableObject {
             count = count + 1
         }
         
-        let queryResult = CADatabaseQueryHelper.queryDatabaseGeneralSearch(searchTerms: searchTerms, databasePointer: databasePointer)
-        filteredUSDAFoodData = queryResult
+        let serialQueue = DispatchQueue(label: "search.serial.queue")
         
-        guard filteredUSDAFoodData.count != 0 else {
-            return
-        }
+        serialQueue.asyncAfter(deadline: .now() + 0.2, execute: {
+            let queryResult = CADatabaseQueryHelper.queryDatabaseGeneralSearch(searchTerms: searchTerms, databasePointer: databasePointer)
+            
+            DispatchQueue.main.async {
+                self.filteredUSDAFoodData = queryResult
+                self.inProgress.toggle()
+            }
+            
+            guard self.filteredUSDAFoodData.count != 0 else {
+                return
+            }
+        })
     }
     
 }

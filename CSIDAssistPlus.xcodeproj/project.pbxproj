@@ -23,6 +23,9 @@
 		EBB5E8DF2C1E70DF00B76378 /* CA_USDAFoodModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */; };
 		EBB5E8E22C1E909C00B76378 /* CSIDAssistFoodDatabase2.db in Resources */ = {isa = PBXBuildFile; fileRef = EBB5E8E12C1E909C00B76378 /* CSIDAssistFoodDatabase2.db */; };
 		EBB5E8E42C1F2AB300B76378 /* CA_Singletons.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8E32C1F2AB300B76378 /* CA_Singletons.swift */; };
+		EBB5E8EE2C1FF54A00B76378 /* CA_WeekDashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8ED2C1FF54A00B76378 /* CA_WeekDashboardModel.swift */; };
+		EBB5E8F02C21343900B76378 /* CA_CalendarDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB5E8EF2C21343900B76378 /* CA_CalendarDashboardView.swift */; };
+		EBF4102B2C30A12C0058CBFA /* CA_ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF4102A2C30A12C0058CBFA /* CA_ProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_USDAFoodModels.swift; sourceTree = "<group>"; };
 		EBB5E8E12C1E909C00B76378 /* CSIDAssistFoodDatabase2.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = CSIDAssistFoodDatabase2.db; path = ../../../../../CSIDAssistFoodDatabase2.db; sourceTree = "<group>"; };
 		EBB5E8E32C1F2AB300B76378 /* CA_Singletons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_Singletons.swift; sourceTree = "<group>"; };
+		EBB5E8ED2C1FF54A00B76378 /* CA_WeekDashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_WeekDashboardModel.swift; sourceTree = "<group>"; };
+		EBB5E8EF2C21343900B76378 /* CA_CalendarDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_CalendarDashboardView.swift; sourceTree = "<group>"; };
+		EBF4102A2C30A12C0058CBFA /* CA_ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_ProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,8 @@
 				EBB5E8D32C1E15AE00B76378 /* CA_TopDashboardView.swift */,
 				EBB5E8D52C1E18AC00B76378 /* CA_SearchResultsView.swift */,
 				EBB5E8D72C1E2A9600B76378 /* CA_AddButtonView.swift */,
+				EBB5E8EF2C21343900B76378 /* CA_CalendarDashboardView.swift */,
+				EBF4102A2C30A12C0058CBFA /* CA_ProgressBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				EBB5E8DE2C1E70DF00B76378 /* CA_USDAFoodModels.swift */,
+				EBB5E8ED2C1FF54A00B76378 /* CA_WeekDashboardModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,10 +228,13 @@
 				EBB5E8E42C1F2AB300B76378 /* CA_Singletons.swift in Sources */,
 				EB8B78612C0EBD96003675C4 /* CSIDAssistPlusApp.swift in Sources */,
 				EBB5E8D82C1E2A9600B76378 /* CA_AddButtonView.swift in Sources */,
+				EBB5E8F02C21343900B76378 /* CA_CalendarDashboardView.swift in Sources */,
 				EB8B78C22C16BFD3003675C4 /* CA_CarouselView.swift in Sources */,
 				EB8B78C02C167CB9003675C4 /* HomeScreenViewModel.swift in Sources */,
 				EBB5E8DF2C1E70DF00B76378 /* CA_USDAFoodModels.swift in Sources */,
+				EBB5E8EE2C1FF54A00B76378 /* CA_WeekDashboardModel.swift in Sources */,
 				EBB5E8D62C1E18AC00B76378 /* CA_SearchResultsView.swift in Sources */,
+				EBF4102B2C30A12C0058CBFA /* CA_ProgressBarView.swift in Sources */,
 				EBB5E8D22C1A59DC00B76378 /* SearchResultCellView.swift in Sources */,
 				EB8B786F2C0EBDC6003675C4 /* HomeScreen.swift in Sources */,
 				EBB5E8D42C1E15AE00B76378 /* CA_TopDashboardView.swift in Sources */,
