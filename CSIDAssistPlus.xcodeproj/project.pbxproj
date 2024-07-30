@@ -40,6 +40,7 @@
 		EB8B78BF2C167CB9003675C4 /* HomeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewModel.swift; sourceTree = "<group>"; };
 		EB8B78C12C16BFD3003675C4 /* CA_CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_CarouselView.swift; sourceTree = "<group>"; };
 		EB8B78C32C17E8FE003675C4 /* CA_SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SearchBarView.swift; sourceTree = "<group>"; };
+		EBAD5D7C2C5968AB0070FD9E /* CSIDAssistFoodDatabase2.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = CSIDAssistFoodDatabase2.db; path = ../../../../../../.Trash/CSIDAssistFoodDatabase2.db; sourceTree = "<group>"; };
 		EBB5E8D12C1A59DC00B76378 /* SearchResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellView.swift; sourceTree = "<group>"; };
 		EBB5E8D32C1E15AE00B76378 /* CA_TopDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_TopDashboardView.swift; sourceTree = "<group>"; };
 		EBB5E8D52C1E18AC00B76378 /* CA_SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SearchResultsView.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		EBB5E8DD2C1E708700B76378 /* DatabaseManagement */ = {
 			isa = PBXGroup;
 			children = (
+				EBAD5D7C2C5968AB0070FD9E /* CSIDAssistFoodDatabase2.db */,
 				EBB5E8D92C1E6EEF00B76378 /* CA_DatabaseHelper.swift */,
 				EBB5E8DB2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift */,
 			);

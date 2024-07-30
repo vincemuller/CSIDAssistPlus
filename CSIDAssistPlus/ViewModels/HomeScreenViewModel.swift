@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//
 @MainActor final class HomeScreenViewModel: ObservableObject {
     @Published var expandSearch: Bool = false
     @Published var activeSearch: Bool = false
