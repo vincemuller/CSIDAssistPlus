@@ -9,12 +9,11 @@ import SwiftUI
 
 struct CA_TypeWriterView: View {
     
-    @State var text: String = ""
-    let finalText: String = "It's been a busy day\nKeep it up!"
+    @State var text: String = "It's been a busy day\nKeep it up!"
     
     var body: some View {
         VStack(spacing: 16.0) {
-            Text(finalText)
+            Text(text)
                 .font(.custom(
                     "AmericanTypewriter",
                     fixedSize: 12))

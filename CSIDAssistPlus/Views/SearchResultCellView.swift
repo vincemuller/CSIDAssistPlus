@@ -9,25 +9,42 @@ import SwiftUI
 
 struct CA_SearchResultCellView: View {
     @StateObject var viewModel: HomeScreenViewModel
-    var category: String = ""
-    var brandName: String = ""
-    var description: String = ""
-    var netCarbs: String = ""
-    var totalSugar: String = ""
-    var totalStarch: String = ""
+    var fdicID: Int             = 0
+    var brandOwner: String      = ""
+    var brandName: String       = ""
+    var category: String        = ""
+    var description: String     = ""
+    var servingSize: String     = ""
+    var servingSizeUnit: String = ""
+    var carbs: String           = ""
+    var totalSugars: String     = ""
+    var totalStarchs: String    = ""
     
     var body: some View {
         let width = viewModel.screenWidth
+        var brand = {
+            if brandOwner == "" && brandName != "" {
+                brandName.capitalized
+            } else if brandOwner != "" && brandName == "" {
+                brandOwner.capitalized
+            } else if brandOwner != "" && brandName != "" {
+                "\(brandOwner.capitalized) | \(brandName.capitalized)"
+            } else {
+                ""
+            }
+            }
         ZStack (alignment: .leading) {
             RoundedRectangle(cornerRadius: 15)
                 .strokeBorder(.caTurqBlue)
                 .frame(width: width.isZero ? 350 : width - 30, height: 100)
             HStack {
                 ZStack {
-                    Rectangle()
+//                    Rectangle()
+//                        .fill(.caTurqBlue)
+                    UnevenRoundedRectangle(topLeadingRadius: 15, bottomLeadingRadius: 15, bottomTrailingRadius: 0, topTrailingRadius: 0, style: .continuous)
                         .fill(.caTurqBlue)
                     VStack {
-                        Text(totalSugar)
+                        Text("\(totalSugars)g")
                             .font(.system(size: 16, weight: .bold))
                             .foregroundStyle(.white)
                         Text("Total Sugar")
@@ -38,7 +55,7 @@ struct CA_SearchResultCellView: View {
                             .fill(.white)
                             .frame(width: 55, height: 2)
                             .padding(.vertical, 2)
-                        Text(totalStarch)
+                        Text("\(totalStarchs)g")
                             .font(.system(size: 16, weight: .bold))
                             .foregroundStyle(.white)
                         Text("Total Starch")
@@ -50,20 +67,23 @@ struct CA_SearchResultCellView: View {
                 .frame(width: 75, height: 101)
                 .offset(x: -1.5)
                 VStack (alignment: .leading) {
-                    Text(brandName.capitalized)
+                    Text(brand())
                         .font(.system(size: 12))
                         .foregroundStyle(Color.black)
                     Text(description.capitalized)
                         .dynamicTypeSize(.medium)
                         .lineLimit(3)
-                        .minimumScaleFactor(0.5)
+                        .minimumScaleFactor(0.7)
                         .foregroundStyle(Color.black)
                         .frame(width: 255, alignment: .leading)
                     Spacer()
-                    Text(category.capitalized)
-                        .font(.system(size: 10))
-                        .foregroundStyle(Color.black)
-                        .offset(y: -10)
+                    HStack {
+                        Text(category.capitalized)
+                            .font(.system(size: 10))
+                            .foregroundStyle(Color.black)
+                            .offset(y: -10)
+                        Text("Carbs: \(carbs)")
+                    }
                 }
                 .frame(width: 250, height: 90, alignment: .topLeading)
                 .offset(y: 5)
@@ -113,7 +133,7 @@ struct CA_SearchResultCellView: View {
 }
 
 #Preview {
-    CA_SearchResultCellView(viewModel: HomeScreenViewModel(), category: "Chips, Crackers, Nuts, & Snacks", brandName: "Dot's", description: "Homestyle Pretzels", netCarbs: "15.0g", totalSugar: "0.0g", totalStarch: "15.0g")
+    CA_SearchResultCellView(viewModel: HomeScreenViewModel(), fdicID: 1234, brandOwner: "Mars Inc.", brandName: "M&M Mars", category: "Confectionary and Sweets", description: "Snickers Crunchers Bar", totalSugars: "25g", totalStarchs: "5g")
 }
 
 struct CA_ScopeButtonView: View {

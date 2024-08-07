@@ -45,6 +45,8 @@ struct CA_SearchBarView: View {
                                         viewModel.brandedFoodsFilter = false
                                         viewModel.wholeFoodsFilter = false
                                         viewModel.searchText = ""
+                                        viewModel.sortFilter = "wholeFood DESC, length(description)"
+                                        viewModel.sortingLabel = "Relevance"
                                     }
                                 } : nil)
                             (viewModel.expandSearch && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
@@ -74,13 +76,12 @@ struct CA_SearchBarView: View {
                             viewModel.expandSearch = true
                             viewModel.characterView = 20
                             isFocused = true
+                            viewModel.generateTip()
                         }
                     }
                     .onSubmit {
-                        withAnimation(.linear.speed(2.5)) {
-                            viewModel.activeSearch = true
-                            viewModel.searchFoods()
-                        }
+                        viewModel.activeSearch = true
+                        viewModel.searchFoods()
                     }
             }
             

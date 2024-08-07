@@ -14,7 +14,15 @@ struct CA_SearchResultsView: View {
     var body: some View {
         ScrollView {
             (viewModel.activeSearch && viewModel.filteredUSDAFoodData.count > 0 ? ForEach((1...viewModel.filteredUSDAFoodData.count), id: \.self) {food in
-                CA_SearchResultCellView(viewModel: viewModel, category: viewModel.filteredUSDAFoodData[food-1].brandedFoodCategory.description, brandName: viewModel.filteredUSDAFoodData[food-1].brandName?.description ?? "", description: viewModel.filteredUSDAFoodData[food-1].description, totalSugar: "22g",  totalStarch: "10g")
+                CA_SearchResultCellView(viewModel: viewModel,
+                                        fdicID: viewModel.filteredUSDAFoodData[food-1].fdicID,
+                                        brandOwner: viewModel.filteredUSDAFoodData[food-1].brandOwner?.description ?? "",
+                                        brandName: viewModel.filteredUSDAFoodData[food-1].brandName?.description ?? "",
+                                        category: viewModel.filteredUSDAFoodData[food-1].brandedFoodCategory.description,
+                                        description: viewModel.filteredUSDAFoodData[food-1].description,
+                                        carbs: viewModel.filteredUSDAFoodData[food-1].carbs.description,
+                                        totalSugars: viewModel.filteredUSDAFoodData[food-1].totalSugars,
+                                        totalStarchs: viewModel.filteredUSDAFoodData[food-1].totalStarches)
             } : nil)
         }
     }

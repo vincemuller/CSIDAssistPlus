@@ -22,6 +22,21 @@ struct USDAFoodDetails: Codable {
     var wholeFood:              String
 }
 
+struct newUSDAFoodDetails: Codable {
+    var searchKeyWords:         String
+    var fdicID:                 Int
+    var brandOwner:             String?
+    var brandName:              String?
+    var brandedFoodCategory:    String
+    var description:            String
+    var servingSize:            Float
+    var servingSizeUnit:        String
+    var carbs:                  String
+    var totalSugars:            String
+    var totalStarches:          String
+    var wholeFood:              String
+}
+
 struct UserFoodItem: Codable {
     var category:       String
     var description:    String

@@ -24,8 +24,8 @@ struct CA_TopDashboardView: View {
                     Image("csidAssistLogoWhite")
                         .resizable()
                         .frame(width: 350, height: 350)
-                        .rotationEffect(.degrees(17))
-                        .offset(x: 50)
+                        .rotationEffect(.degrees(25))
+                        .offset(x: 110)
                         .mask {
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: width, height: height)
@@ -40,6 +40,16 @@ struct CA_TopDashboardView: View {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: width, height: height)
                 }
+            (viewModel.expandSearch && !viewModel.activeSearch ?
+             Text(viewModel.helpfulTip)
+                .foregroundStyle(.white)
+                 .font(.custom(
+                     "AmericanTypewriter",
+                     fixedSize: 16))
+                 .frame(width: 160)
+                 .multilineTextAlignment(.center)
+                 .offset(x: -85, y: 40)
+             : nil)
         }
     }
 }

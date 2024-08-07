@@ -6,25 +6,33 @@
 //
 
 import Foundation
-//
+
 @MainActor final class HomeScreenViewModel: ObservableObject {
     @Published var expandSearch: Bool = false
     @Published var activeSearch: Bool = false
     @Published var inProgress: Bool = false
     @Published var characterView: CGFloat = 150
     @Published var searchText: String = ""
+    @Published var sortingLabel: String = "Relevance"
+    @Published var sortFilter: String = "wholeFood DESC, length(description)"
     @Published var wholeFoodsFilter: Bool = false
     @Published var allFoodsFilter: Bool = true
     @Published var brandedFoodsFilter: Bool = false
     @Published var isAddActive: Bool = false
     @Published var screenWidth: CGFloat = 0
     @Published var screenHeight: CGFloat = 0
-    @Published var filteredUSDAFoodData: [USDAFoodDetails] = []
+    @Published var filteredUSDAFoodData: [newUSDAFoodDetails] = []
     @Published var savedLists: [String] = ["Safe Foods", "Unsafe Foods", "Favorite Foods"]
     @Published var calendarRange: [Int] = [1,5]
     @Published var dashboardWeek = Date.now
+    @Published var helpfulTip: String = ""
+    
+    func generateTip() {
+        helpfulTip = CA_HelpfulTipsModel().getTip(index: Int.random(in: 0...5))
+    }
     
     func searchFoods() {
+        
         inProgress.toggle()
         
         var searchTerms = ""
@@ -35,9 +43,9 @@ import Foundation
         let searchComponents = filter.lowercased().components(separatedBy: " ").filter{$0 != ""}
         
         if wholeFoodsFilter {
-            wF = "USDAFoodDetails.wholeFood='yes' AND"
+            wF = "USDAFoodSearchTable.wholeFood='yes' AND"
         } else if brandedFoodsFilter {
-            wF = "USDAFoodDetails.wholeFood='no' AND"
+            wF = "USDAFoodSearchTable.wholeFood='no' AND"
         } else {
             wF = ""
         }
@@ -45,9 +53,9 @@ import Foundation
         var count = 0
         while count < searchComponents.count {
             if count==0 {
-                searchTerms = "\(wF) USDAFoodDetails.searchKeyWords LIKE '%\(searchComponents[count])%' "
+                searchTerms = "\(wF) USDAFoodSearchTable.searchKeyWords LIKE '%\(searchComponents[count])%' "
             } else {
-                searchTerms = searchTerms + "AND USDAFoodDetails.searchKeyWords LIKE '%\(searchComponents[count])%'"
+                searchTerms = searchTerms + "AND USDAFoodSearchTable.searchKeyWords LIKE '%\(searchComponents[count])%'"
             }
             count = count + 1
         }
@@ -55,9 +63,25 @@ import Foundation
         let serialQueue = DispatchQueue(label: "search.serial.queue")
         let sT = searchTerms
         
+        if sortingLabel == "Relevance" {
+            sortFilter = "wholeFood DESC, length(description)"
+        } else if sortingLabel == "Sugars (Low to High)" {
+            sortFilter = "CAST(totalSugars AS REAL)"
+        } else if sortingLabel == "Sugars (High to Low)" {
+            sortFilter = "CAST(totalSugars AS REAL)DESC"
+        } else if sortingLabel == "Starches (Low to High)" {
+            sortFilter = "CAST(totalStarches AS REAL)"
+        } else if sortingLabel == "Starches (High to Low)" {
+            sortFilter = "CAST(totalStarches AS REAL)DESC"
+        } else {
+            sortFilter = "wholeFood DESC, length(description)"
+        }
+        
+        let sortFilter = sortFilter
+        
         serialQueue.async( execute: {
             
-            let queryResult = CADatabaseQueryHelper.queryDatabaseGeneralSearch(searchTerms: sT, databasePointer: databasePointer)
+            let queryResult = CADatabaseQueryHelper.queryDatabaseNewGeneralSearch(searchTerms: sT, databasePointer: databasePointer, sortFilter: sortFilter)
 
             DispatchQueue.main.async {
                 self.filteredUSDAFoodData = queryResult

@@ -22,7 +22,7 @@ struct HomeScreen: View {
                         CA_SearchBarView(viewModel: viewModel)
                             .padding(.bottom, 10)
                         CA_TopDashboardView(viewModel: viewModel)
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 5)
                         CA_CalendarDashboardView(viewModel: viewModel)
                             .padding(.bottom, 20)
                         (viewModel.expandSearch ? nil :
@@ -55,6 +55,7 @@ struct HomeScreen: View {
                             }
                         })
                         CA_SearchResultsView(viewModel: viewModel)
+                            .padding(.top, 15)
                     }
                     NavigationLink(destination: CA_AddNewMealScreen()) {
                         CA_AddButtonView(viewModel: viewModel)
@@ -63,7 +64,7 @@ struct HomeScreen: View {
                 .onAppear {
                     viewModel.screenWidth = geometry.size.width
                     viewModel.screenHeight = geometry.size.height
-                    if databasePointer == nil {databasePointer = CA_DatabaseHelper.getDatabasePointer(databaseName: "CSIDAssistFoodDatabase2.db")
+                    if databasePointer == nil {databasePointer = CA_DatabaseHelper.getDatabasePointer(databaseName: "CSIDAssistPlusFoodDatabase.db")
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                         delay = true
@@ -81,6 +82,15 @@ struct HomeScreen: View {
                         
                     }
                     : nil
+                }
+                .overlay (alignment: .topTrailing) {
+                    (viewModel.activeSearch ?
+                     HStack {
+                        Text(viewModel.sortingLabel)
+                            .font(.system(size: 14))
+                            .foregroundStyle(.caTurqBlue)
+                        CA_SortDropDownList(viewModel: viewModel)
+                    }.offset(x: -20, y: 110) : nil)
                 }
             }
         }).ignoresSafeArea(.keyboard)
