@@ -21,4 +21,19 @@ extension String {
         
         return formattedValue
     }
+    
+    func brandFormater(brandOwner: String) -> String {
+        
+        if brandOwner == "" && self != "" {
+            return self.capitalized
+        } else if brandOwner != "" && self == "" {
+            return brandOwner.capitalized
+        } else if brandOwner != "" && self != "" {
+            return "\(brandOwner.capitalized) | \(self.capitalized)"
+        } else {
+            return ""
+        }
+        
+    }
+    
 }

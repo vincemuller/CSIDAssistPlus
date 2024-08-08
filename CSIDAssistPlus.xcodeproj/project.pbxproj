@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EB0EC22C2C5DFC2B000D464E /* CA_SortDropDownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0EC22B2C5DFC2B000D464E /* CA_SortDropDownList.swift */; };
 		EB0EC2382C619718000D464E /* CSIDAssistPlusFoodDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = EB0EC2372C619718000D464E /* CSIDAssistPlusFoodDatabase.db */; };
+		EB0EC23A2C650CC5000D464E /* CA_ScopeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0EC2392C650CC5000D464E /* CA_ScopeButtonView.swift */; };
 		EB4026022C55B3A8006F1EF7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4026012C55B3A8006F1EF7 /* Extensions.swift */; };
 		EB8B78612C0EBD96003675C4 /* CSIDAssistPlusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8B78602C0EBD96003675C4 /* CSIDAssistPlusApp.swift */; };
 		EB8B78652C0EBD98003675C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB8B78642C0EBD98003675C4 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		EB0EC22B2C5DFC2B000D464E /* CA_SortDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_SortDropDownList.swift; sourceTree = "<group>"; };
 		EB0EC2372C619718000D464E /* CSIDAssistPlusFoodDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = CSIDAssistPlusFoodDatabase.db; sourceTree = "<group>"; };
+		EB0EC2392C650CC5000D464E /* CA_ScopeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CA_ScopeButtonView.swift; sourceTree = "<group>"; };
 		EB4026012C55B3A8006F1EF7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EB8B785D2C0EBD96003675C4 /* CSIDAssistPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CSIDAssistPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8B78602C0EBD96003675C4 /* CSIDAssistPlusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSIDAssistPlusApp.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				EBF4102C2C319B3E0058CBFA /* CA_TypeWriterView.swift */,
 				EBD2DECA2C3722860009D59C /* CA_AddNewMealScreen.swift */,
 				EB0EC22B2C5DFC2B000D464E /* CA_SortDropDownList.swift */,
+				EB0EC2392C650CC5000D464E /* CA_ScopeButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			files = (
 				EB0EC22C2C5DFC2B000D464E /* CA_SortDropDownList.swift in Sources */,
 				EBB5E8DC2C1E705B00B76378 /* CA_DatabaseQueryHelper.swift in Sources */,
+				EB0EC23A2C650CC5000D464E /* CA_ScopeButtonView.swift in Sources */,
 				EBB5E8DA2C1E6EEF00B76378 /* CA_DatabaseHelper.swift in Sources */,
 				EBB5E8E42C1F2AB300B76378 /* CA_Singletons.swift in Sources */,
 				EBD2DECB2C3722860009D59C /* CA_AddNewMealScreen.swift in Sources */,
