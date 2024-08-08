@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CA_SortDropDownList: View {
     var viewModel: HomeScreenViewModel
-    @State var sortingOptions = ["Relevance", "Sugars (Low to High)", "Sugars (High to Low)", "Starches (Low to High)", "Starches (High to Low)"]
+    @State var sortingOptions = ["Relevance", "Carbs (Low to High)", "Carbs (High to Low)", "Sugars (Low to High)", "Sugars (High to Low)", "Starches (Low to High)", "Starches (High to Low)"]
     
     var body: some View {
         Menu {

@@ -73,6 +73,10 @@ import Foundation
             sortFilter = "CAST(totalStarches AS REAL)"
         } else if sortingLabel == "Starches (High to Low)" {
             sortFilter = "CAST(totalStarches AS REAL)DESC"
+        } else if sortingLabel == "Carbs (Low to High)" {
+            sortFilter = "CAST(carbs AS REAL)DESC"
+        } else if sortingLabel == "Carbs (High to Low)" {
+            sortFilter = "CAST(carbs AS REAL)"
         } else {
             sortFilter = "wholeFood DESC, length(description)"
         }
