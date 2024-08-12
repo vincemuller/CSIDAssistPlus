@@ -71,3 +71,10 @@ struct WholeFoodNutrientData: Codable {
     var maltose:            String
 }
 
+struct DailyNutData: Identifiable {
+    var id = UUID()
+    var label:      String
+    var nutData:    String
+}
+
+

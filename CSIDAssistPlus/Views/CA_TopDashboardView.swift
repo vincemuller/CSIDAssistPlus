@@ -34,7 +34,7 @@ struct CA_TopDashboardView: View {
                 }
             Image("hipsterAnimal")
                 .resizable()
-                .frame(width: 150, height: viewModel.activeSearch ? 0 : 150)
+                .frame(width: viewModel.screenHeight * 0.1976, height: viewModel.activeSearch ? 0 : viewModel.screenHeight * 0.1976)
                 .offset(x: width * 0.23, y: viewModel.characterView)
                 .mask {
                     RoundedRectangle(cornerRadius: 30)
@@ -45,10 +45,10 @@ struct CA_TopDashboardView: View {
                 .foregroundStyle(.white)
                  .font(.custom(
                      "AmericanTypewriter",
-                     fixedSize: 16))
-                 .frame(width: 160)
+                     fixedSize: viewModel.screenHeight * 0.021))
+                 .frame(width: 145)
                  .multilineTextAlignment(.center)
-                 .offset(x: -85, y: 40)
+                 .offset(x: -85, y: viewModel.screenHeight * 0.0527)
              : nil)
         }
     }

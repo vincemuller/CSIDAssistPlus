@@ -16,13 +16,14 @@ struct CA_SortDropDownList: View {
             ForEach(sortingOptions, id: \.self){ option in
                 Button(action: {self.viewModel.sortingLabel = option; self.viewModel.searchFoods()}, label: {
                     Text(option)
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
                         .foregroundStyle(.caTurqBlue)
                 })
             }
         } label: {
             Image(systemName: "arrow.up.and.down.text.horizontal")
                 .foregroundColor(.caTurqBlue)
+                .padding(.bottom, 5)
         }
     }
 }

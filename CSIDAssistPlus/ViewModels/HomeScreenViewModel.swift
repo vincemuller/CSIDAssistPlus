@@ -25,10 +25,18 @@ import Foundation
     @Published var savedLists: [String] = ["Safe Foods", "Unsafe Foods", "Favorite Foods"]
     @Published var calendarRange: [Int] = [1,5]
     @Published var dashboardWeek = Date.now
+    @Published var selectedDay = Date.now
     @Published var helpfulTip: String = ""
+    @Published var dailyNuts: [DailyNutData] = [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.5g"), DailyNutData(label: "Total Starches", nutData: "7.5g")]
+    @Published var mealBuilder: [USDANutrientData] = [USDANutrientData(carbs: "5", fiber: "5", netCarbs: "5", totalSugars: "5", totalStarches: "5", totalSugarAlcohols: "5", protein: "5", totalFat: "5", sodium: "5")]
     
     func generateTip() {
         helpfulTip = CA_HelpfulTipsModel().getTip(index: Int.random(in: 0...5))
+    }
+    
+    func resetCalendar() {
+        dashboardWeek = Date.now
+        selectedDay = Date.now
     }
     
     func searchFoods() {
@@ -74,9 +82,9 @@ import Foundation
         } else if sortingLabel == "Starches (High to Low)" {
             sortFilter = "CAST(totalStarches AS REAL)DESC"
         } else if sortingLabel == "Carbs (Low to High)" {
-            sortFilter = "CAST(carbs AS REAL)DESC"
-        } else if sortingLabel == "Carbs (High to Low)" {
             sortFilter = "CAST(carbs AS REAL)"
+        } else if sortingLabel == "Carbs (High to Low)" {
+            sortFilter = "CAST(carbs AS REAL)DESC"
         } else {
             sortFilter = "wholeFood DESC, length(description)"
         }
@@ -86,15 +94,12 @@ import Foundation
         serialQueue.async( execute: {
             
             let queryResult = CADatabaseQueryHelper.queryDatabaseNewGeneralSearch(searchTerms: sT, databasePointer: databasePointer, sortFilter: sortFilter)
-
+            
             DispatchQueue.main.async {
                 self.filteredUSDAFoodData = queryResult
                 self.inProgress.toggle()
             }
             
-            guard queryResult.count != 0 else {
-                return
-            }
         })
     }
 }

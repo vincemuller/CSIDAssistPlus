@@ -13,15 +13,11 @@ struct CA_AddButtonView: View {
     @StateObject var viewModel: HomeScreenViewModel
     
     var body: some View {
-        
-        (!viewModel.expandSearch ? ZStack {
-            Circle()
-                .fill(Color.green).opacity(0.8)
-                .frame(width: 50, height: 50)
-            Image(systemName: "plus")
-                .font(.system(size: 30, weight: .semibold))
-                .foregroundStyle(Color.white)
-        } : nil)
+        ZStack {
+            Image(systemName: "fork.knife.circle")
+                .font(.system(size: 50, weight: .semibold))
+                .foregroundStyle(.caTurqBlue)
+        }
     }
 }
 

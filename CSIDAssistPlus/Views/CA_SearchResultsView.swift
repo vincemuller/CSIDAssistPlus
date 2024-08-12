@@ -14,10 +14,10 @@ struct CA_SearchResultsView: View {
     
     var body: some View {
         ScrollView {
-            (viewModel.activeSearch && viewModel.filteredUSDAFoodData.count > 0 ?
+            (viewModel.activeSearch && !viewModel.filteredUSDAFoodData.isEmpty ?
              LazyVGrid (columns: columns) {
-                ForEach((1...viewModel.filteredUSDAFoodData.count), id: \.self) {food in
-                    CA_SearchResultCellView(viewModel: viewModel, foodItem: viewModel.filteredUSDAFoodData[food-1])
+                ForEach((0...viewModel.filteredUSDAFoodData.count-1), id: \.self) {food in
+                    CA_SearchResultCellView(viewModel: viewModel, foodItem: viewModel.filteredUSDAFoodData[food])
                 }} : nil)
         }
     }

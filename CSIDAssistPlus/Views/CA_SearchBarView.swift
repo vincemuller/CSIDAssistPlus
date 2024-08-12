@@ -16,7 +16,7 @@ struct CA_SearchBarView: View {
         let compWidth = viewModel.screenWidth * 0.25
         let expandedWidth = viewModel.screenWidth * 0.90
         let height = viewModel.screenHeight * 0.05
-
+        
         HStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
@@ -37,6 +37,7 @@ struct CA_SearchBarView: View {
                                 .foregroundStyle(Color.caTurqBlue)
                                 .onTapGesture {
                                     withAnimation(.bouncy) {
+                                        viewModel.resetCalendar()
                                         viewModel.expandSearch = false
                                         isFocused = false
                                         viewModel.characterView = 150
@@ -89,14 +90,6 @@ struct CA_SearchBarView: View {
         (viewModel.expandSearch ? CA_ScopeButtonView(viewModel: viewModel) : nil)
     }
 }
-
-//viewModel.expandSearch = false
-//isFocused = false
-//viewModel.characterView = 150
-//viewModel.activeSearch = false
-//viewModel.allFoodsFilter = true
-//viewModel.brandedFoodsFilter = false
-//viewModel.wholeFoodsFilter = false
 
 #Preview {
     CA_SearchBarView(viewModel: HomeScreenViewModel())

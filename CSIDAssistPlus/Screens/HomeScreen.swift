@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeScreen: View {   
     @StateObject private var viewModel = HomeScreenViewModel()
-    @State private var delay = false
     
     var body: some View {
         
@@ -20,58 +19,32 @@ struct HomeScreen: View {
                         .ignoresSafeArea(.all)
                     VStack {
                         CA_SearchBarView(viewModel: viewModel)
+                            .padding(.top, 5)
                             .padding(.bottom, 10)
                         CA_TopDashboardView(viewModel: viewModel)
-                            .padding(.bottom, 5)
+                            .padding(.bottom, viewModel.activeSearch ? 15 : 5)
                         CA_CalendarDashboardView(viewModel: viewModel)
                             .padding(.bottom, 20)
-                        (viewModel.expandSearch ? nil :
-                            HStack (spacing: 20) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 30)
-                                    .stroke(Color.caTurqBlue, lineWidth: 3)
-                                    .frame(width: viewModel.screenWidth/2.4, height: viewModel.screenHeight * 0.197)
-                                    .overlay(alignment: .center) {
-                                        Image("hipsterAnimal")
-                                            .resizable()
-                                            .frame(width: 130, height: viewModel.activeSearch ? 0 : 130)
-                                            .offset(y: 25)
-                                            .mask {
-                                                RoundedRectangle(cornerRadius: 30)
-                                                    .frame(width: viewModel.screenWidth/2.4, height: viewModel.screenHeight * 0.197)
-                                            }
-                                    }
-                                (delay ? CA_TypeWriterView() : nil)
-                                    .offset(y: -45)
-                            }
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.caTurqBlue.opacity(0.2))
-                                    .frame(width: viewModel.screenWidth/2.4, height: viewModel.screenHeight * 0.197)
-                                Text("Daily Stats")
-                                    .foregroundStyle(Color.caDarkBlue)
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .offset(y: 55)
-                            }
-                        })
+                        HStack (spacing: 15) {
+                            CA_HipsterEncouragementView(viewModel: viewModel)
+                            CA_DailyNutsView(viewModel: viewModel)
+                        }
                         CA_SearchResultsView(viewModel: viewModel)
                             .padding(.top, 15)
                     }
                     NavigationLink(destination: CA_AddNewMealScreen()) {
+                        viewModel.expandSearch ? nil :
                         CA_AddButtonView(viewModel: viewModel)
                     }.offset(y: 350)
                 }
                 .onAppear {
-                    viewModel.screenWidth = geometry.size.width
-                    viewModel.screenHeight = geometry.size.height
+                    viewModel.screenWidth   = geometry.size.width
+                    viewModel.screenHeight  = geometry.size.height
                     if databasePointer == nil {databasePointer = CA_DatabaseHelper.getDatabasePointer(databaseName: "CSIDAssistPlusFoodDatabase.db")
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                        delay = true
-                    })
                 }
                 .onDisappear(perform: {
-                    delay = false
+                    viewModel.resetCalendar()
                 })
                 .overlay {
                     viewModel.inProgress ?
@@ -90,7 +63,7 @@ struct HomeScreen: View {
                             .font(.system(size: 14))
                             .foregroundStyle(.caTurqBlue)
                         CA_SortDropDownList(viewModel: viewModel)
-                    }.offset(x: -20, y: 110) : nil)
+                    }.offset(x: -(viewModel.screenWidth * 0.05089059), y: viewModel.screenHeight * 0.16) : nil)
                 }
             }
         }).ignoresSafeArea(.keyboard)
@@ -100,8 +73,3 @@ struct HomeScreen: View {
 #Preview {
     HomeScreen()
 }
-
-//NavigationStack {
-//    NavigationLink {
-//    }
-//}
