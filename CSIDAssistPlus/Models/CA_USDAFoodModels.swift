@@ -22,7 +22,7 @@ struct USDAFoodDetails: Codable {
     var wholeFood:              String
 }
 
-struct newUSDAFoodDetails: Codable {
+struct newUSDAFoodDetails: Codable, Hashable {
     var searchKeyWords:         String
     var fdicID:                 Int
     var brandOwner:             String?

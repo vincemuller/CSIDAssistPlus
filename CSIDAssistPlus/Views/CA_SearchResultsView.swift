@@ -16,8 +16,8 @@ struct CA_SearchResultsView: View {
         ScrollView {
             (viewModel.activeSearch && !viewModel.filteredUSDAFoodData.isEmpty ?
              LazyVGrid (columns: columns) {
-                ForEach((0...viewModel.filteredUSDAFoodData.count-1), id: \.self) {food in
-                    CA_SearchResultCellView(viewModel: viewModel, foodItem: viewModel.filteredUSDAFoodData[food])
+                ForEach((viewModel.filteredUSDAFoodData), id: \.fdicID) {food in
+                    CA_SearchResultCellView(viewModel: viewModel, foodItem: food)
                 }} : nil)
         }
     }
