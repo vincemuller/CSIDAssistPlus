@@ -13,13 +13,22 @@ struct CA_SearchResultsView: View {
     let columns: [GridItem] = [GridItem(.flexible())]
     
     var body: some View {
-        ScrollView {
+        List {
             (viewModel.activeSearch && !viewModel.filteredUSDAFoodData.isEmpty ?
-             LazyVGrid (columns: columns) {
-                ForEach((viewModel.filteredUSDAFoodData), id: \.fdicID) {food in
-                    CA_SearchResultCellView(viewModel: viewModel, foodItem: food)
-                }} : nil)
+                ForEach((viewModel.filteredUSDAFoodData), id: \.self) {food in
+                CA_SearchResultCellView(viewModel: viewModel, foodItem: food).listRowSeparator(.hidden).listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+            } : nil)
         }
+        .listStyle(.plain)
+        .environment(\.defaultMinListRowHeight, 0)
+        
+//        ScrollView {
+//            (viewModel.activeSearch && !viewModel.filteredUSDAFoodData.isEmpty ?
+//             LazyVGrid (columns: columns) {
+//                ForEach((viewModel.filteredUSDAFoodData), id: \.self) {food in
+//                    CA_SearchResultCellView(viewModel: viewModel, foodItem: food)
+//                }} : nil)
+//        }
     }
 }
 

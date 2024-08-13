@@ -131,7 +131,6 @@
 				EBB5E8EF2C21343900B76378 /* CA_CalendarDashboardView.swift */,
 				EBF4102A2C30A12C0058CBFA /* CA_ProgressBarView.swift */,
 				EBF4102C2C319B3E0058CBFA /* CA_TypeWriterView.swift */,
-				EBD2DECA2C3722860009D59C /* CA_AddNewMealScreen.swift */,
 				EB0EC22B2C5DFC2B000D464E /* CA_SortDropDownList.swift */,
 				EB0EC2392C650CC5000D464E /* CA_ScopeButtonView.swift */,
 				EB0EC2872C696405000D464E /* CA_HipsterEncouragementView.swift */,
@@ -145,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				EB8B786E2C0EBDC6003675C4 /* HomeScreen.swift */,
+				EBD2DECA2C3722860009D59C /* CA_AddNewMealScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

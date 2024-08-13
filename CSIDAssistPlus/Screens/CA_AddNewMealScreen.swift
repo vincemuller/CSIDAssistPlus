@@ -9,8 +9,12 @@ import SwiftUI
 
 struct CA_AddNewMealScreen: View {
     var body: some View {
-        VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.white
+                .ignoresSafeArea(.all)
+            VStack {
+                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            }
         }
     }
 }

@@ -25,9 +25,6 @@ struct CA_SearchBarView: View {
                 RoundedRectangle(cornerRadius: 30)
                     .stroke(viewModel.expandSearch ? Color.caTurqBlue : Color.gray.opacity(0.2))
                     .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
-                    .overlay(alignment: .center) {
-                        (!viewModel.expandSearch ? Text("SEARCH").foregroundStyle(Color.black).opacity(0.3) : nil)
-                    }
                     .overlay(alignment: .leading) {
                         HStack (spacing: 0) {
                             (viewModel.expandSearch ?
@@ -66,24 +63,31 @@ struct CA_SearchBarView: View {
                                 }
                             } : nil)
                     }
-                
-                TextField("", text: $viewModel.searchText)
-                    .foregroundColor(Color.black)
-                    .frame(width: viewModel.expandSearch ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
-                    .focused($isFocused)
-                    .padding(.horizontal, 5)
-                    .onTapGesture {
+                ZStack {
+                    TextField("", text: $viewModel.searchText)
+                        .foregroundColor(Color.black)
+                        .frame(width: viewModel.expandSearch ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
+                        .focused($isFocused)
+                        .padding(.horizontal, 5)
+                        .onSubmit {
+                            viewModel.activeSearch = true
+                            viewModel.searchFoods()
+                        }
+                    viewModel.expandSearch ? nil :
+                    Button {
                         withAnimation(.bouncy) {
                             viewModel.expandSearch = true
                             viewModel.characterView = 20
                             isFocused = true
                             viewModel.generateTip()
                         }
+                    } label: {
+                        Text("SEARCH")
+                            .foregroundStyle(Color.black).opacity(0.3)
+                            .frame(width: compWidth, height: height)
                     }
-                    .onSubmit {
-                        viewModel.activeSearch = true
-                        viewModel.searchFoods()
-                    }
+
+                }
             }
             
         }

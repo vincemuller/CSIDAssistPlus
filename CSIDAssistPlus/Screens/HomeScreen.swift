@@ -22,7 +22,7 @@ struct HomeScreen: View {
                             .padding(.top, 5)
                             .padding(.bottom, 10)
                         CA_TopDashboardView(viewModel: viewModel)
-                            .padding(.bottom, viewModel.activeSearch ? 15 : 5)
+                            .padding(.bottom, viewModel.activeSearch ? 15 : 10)
                         CA_CalendarDashboardView(viewModel: viewModel)
                             .padding(.bottom, 20)
                         HStack (spacing: 15) {
