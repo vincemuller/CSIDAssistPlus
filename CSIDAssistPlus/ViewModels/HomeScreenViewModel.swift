@@ -8,6 +8,7 @@
 import Foundation
 
 @MainActor final class HomeScreenViewModel: ObservableObject {
+    @Published var foodDetalsPresenting: Bool = false
     @Published private var expandSearch: Bool = false
     @Published private var activeSearch: Bool = false
     @Published private var inProgress: Bool = false

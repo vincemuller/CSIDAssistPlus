@@ -16,7 +16,13 @@ struct CA_SearchResultsView: View {
         List {
             (viewModel.getActiveSearchState() ?
              ForEach((viewModel.getFilteredUSDAFoodData()), id: \.self) {food in
-                CA_SearchResultCellView(sortingLabel: viewModel.sortingLabel, foodItem: food, screenWidth: viewModel.screenWidth, screenHeight: viewModel.screenHeight).listRowSeparator(.hidden).listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                CA_SearchResultCellView(sortingLabel: viewModel.sortingLabel, foodItem: food, screenWidth: viewModel.screenWidth, screenHeight: viewModel.screenHeight)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                    .listRowBackground(Color.white)
+                    .onTapGesture {
+                        viewModel.foodDetalsPresenting = true
+                    }
             } : nil)
         }
         .listStyle(.plain)

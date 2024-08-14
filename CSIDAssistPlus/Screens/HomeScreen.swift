@@ -66,6 +66,11 @@ struct HomeScreen: View {
                         CA_SortDropDownList(viewModel: viewModel)
                     }.offset(x: -(viewModel.screenWidth * 0.05089059), y: viewModel.screenHeight * 0.16) : nil)
                 }
+                .sheet(isPresented: $viewModel.foodDetalsPresenting, onDismiss: {
+                    viewModel.foodDetalsPresenting = false
+                }) {
+                    CA_AddNewMealScreen()
+                }
             }
         }).ignoresSafeArea(.keyboard)
     }
