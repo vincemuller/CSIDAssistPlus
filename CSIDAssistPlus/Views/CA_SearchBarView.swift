@@ -62,6 +62,7 @@ struct CA_SearchBarView: View {
                         .padding(.horizontal, 5)
                         .onSubmit {
                             viewModel.searchFoods()
+                            print(CFGetRetainCount(viewModel))
                         }
                     viewModel.getExpandState() ? nil :
                     Button {

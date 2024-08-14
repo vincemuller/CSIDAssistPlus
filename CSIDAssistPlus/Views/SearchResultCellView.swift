@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct CA_SearchResultCellView: View {
-    @StateObject var viewModel: HomeScreenViewModel
+//    @StateObject var viewModel: HomeScreenViewModel
+    var sortingLabel: String
+    var foodItem: newUSDAFoodDetails
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
+    
     @Namespace var namespace
     
-    var foodItem: newUSDAFoodDetails
-    
     var body: some View {
-        let width = viewModel.screenWidth
+        let width = screenWidth
         let brand = foodItem.brandName?.brandFormater(brandOwner: foodItem.brandOwner ?? "")
         if #available(iOS 18.0, *) {
             ZStack {
@@ -22,38 +25,38 @@ struct CA_SearchResultCellView: View {
                 ZStack (alignment: .leading) {
                     RoundedRectangle(cornerRadius: 12)
                         .strokeBorder(.caTurqBlue)
-                        .frame(width: width.isZero ? 360 : viewModel.screenWidth * 0.92366, height: viewModel.screenHeight * 0.118577)
+                        .frame(width: width.isZero ? 360 : screenWidth * 0.92366, height: screenHeight * 0.118577)
                     HStack (spacing: 0) {
                         ZStack {
                             UnevenRoundedRectangle(topLeadingRadius: 12, bottomLeadingRadius: 12, bottomTrailingRadius: 0, topTrailingRadius: 0, style: .continuous)
                                 .fill(.caTurqBlue)
-                                .frame(width: viewModel.screenWidth * 0.20356234, height: viewModel.screenHeight * 0.1198946)
+                                .frame(width: screenWidth * 0.20356234, height: screenHeight * 0.1198946)
                             VStack {
-                                (viewModel.sortingLabel.contains("Carbs") ? Text("\(foodItem.carbs)g")
+                                (sortingLabel.contains("Carbs") ? Text("\(foodItem.carbs)g")
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundStyle(.white) : nil)
-                                (viewModel.sortingLabel.contains("Carbs") ? Text("Total Carbs")
+                                (sortingLabel.contains("Carbs") ? Text("Total Carbs")
                                     .font(.system(size: 12, weight: .semibold))
                                     .foregroundStyle(.white)
-                                    .frame(width: viewModel.screenWidth * 0.19083969) : nil)
-                                (!viewModel.sortingLabel.contains("Carbs") ? Text("\(foodItem.totalSugars)g")
+                                    .frame(width: screenWidth * 0.19083969) : nil)
+                                (!sortingLabel.contains("Carbs") ? Text("\(foodItem.totalSugars)g")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundStyle(.white) : nil)
-                                (!viewModel.sortingLabel.contains("Carbs") ? Text("Total Sugar")
+                                (!sortingLabel.contains("Carbs") ? Text("Total Sugar")
                                     .font(.system(size: 10, weight: .semibold))
                                     .foregroundStyle(.white)
-                                    .frame(width: viewModel.screenWidth * 0.19083969) : nil)
-                                (!viewModel.sortingLabel.contains("Carbs") ? Rectangle()
+                                    .frame(width: screenWidth * 0.19083969) : nil)
+                                (!sortingLabel.contains("Carbs") ? Rectangle()
                                     .fill(.white)
-                                    .frame(width: viewModel.screenWidth * 0.1653944, height: 2)
+                                    .frame(width: screenWidth * 0.1653944, height: 2)
                                     .padding(.vertical, 2) : nil)
-                                (!viewModel.sortingLabel.contains("Carbs") ? Text("\(foodItem.totalStarches)g")
+                                (!sortingLabel.contains("Carbs") ? Text("\(foodItem.totalStarches)g")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundStyle(.white) : nil)
-                                (!viewModel.sortingLabel.contains("Carbs") ? Text("Total Starch")
+                                (!sortingLabel.contains("Carbs") ? Text("Total Starch")
                                     .font(.system(size: 10, weight: .semibold))
                                     .foregroundStyle(.white)
-                                    .frame(width: viewModel.screenWidth * 0.19083) : nil)
+                                    .frame(width: screenWidth * 0.19083) : nil)
                             }
                         }
                         Text(foodItem.description.capitalized)
@@ -62,21 +65,21 @@ struct CA_SearchResultCellView: View {
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
                             .minimumScaleFactor(0.8)
-                            .frame(width: viewModel.screenWidth * 0.6106, alignment: .leading)
+                            .frame(width: screenWidth * 0.6106, alignment: .leading)
                             .offset(x: 10)
                     }
-                    .frame(width: width.isZero ? 360 : viewModel.screenWidth * 0.92366, height: viewModel.screenHeight * 0.118577, alignment: .leading)
+                    .frame(width: width.isZero ? 360 : screenWidth * 0.92366, height: screenHeight * 0.118577, alignment: .leading)
                     Text(brand ?? "")
                         .font(.system(size: 10))
                         .foregroundStyle(.caLightGray)
                         .lineLimit(1)
                         .frame(width: 240, alignment: .leading)
-                        .offset(x: viewModel.screenWidth * 0.234, y: -(viewModel.screenHeight * 0.04611))
+                        .offset(x: screenWidth * 0.234, y: -(screenHeight * 0.04611))
                     Text(foodItem.brandedFoodCategory.capitalized)
                         .font(.system(size: 10))
                         .foregroundStyle(.caPink)
-                        .frame(width: viewModel.screenWidth * 0.6106, alignment: .leading)
-                        .offset(x: viewModel.screenWidth * 0.234, y: (viewModel.screenHeight * 0.04611))
+                        .frame(width: screenWidth * 0.6106, alignment: .leading)
+                        .offset(x: screenWidth * 0.234, y: (screenHeight * 0.04611))
                 }
                 .overlay (alignment: .topTrailing) {
                     Image(systemName: "star.fill")
@@ -91,6 +94,6 @@ struct CA_SearchResultCellView: View {
     }
 }
 
-#Preview {
-    CA_SearchResultCellView(viewModel: HomeScreenViewModel(), foodItem: newUSDAFoodDetails(searchKeyWords: "", fdicID: 0, brandOwner: "Mars Inc.", brandName: "M&M Mars", brandedFoodCategory: "Confectionary and Sweets", description: "Snickers Crunchers, Chocolate Candy Bar", servingSize: 80, servingSizeUnit: "g", carbs: "25", totalSugars: "12.5", totalStarches: "12.5", wholeFood: "no"))
-}
+//#Preview {
+//    CA_SearchResultCellView(viewModel: HomeScreenViewModel(), foodItem: newUSDAFoodDetails(searchKeyWords: "", fdicID: 0, brandOwner: "Mars Inc.", brandName: "M&M Mars", brandedFoodCategory: "Confectionary and Sweets", description: "Snickers Crunchers, Chocolate Candy Bar", servingSize: 80, servingSizeUnit: "g", carbs: "25", totalSugars: "12.5", totalStarches: "12.5", wholeFood: "no"))
+//}
