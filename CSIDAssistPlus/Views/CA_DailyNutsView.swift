@@ -14,9 +14,9 @@ struct CA_DailyNutsView: View {
                                GridItem(.flexible())]
     
     var body: some View {
-        viewModel.expandSearch ? nil :
+        viewModel.getExpandState() ? nil :
         LazyVGrid(columns: columns) {
-            ForEach(viewModel.dailyNuts) { nut in
+            ForEach(viewModel.getDailyNuts()) { nut in
                 CA_DailyNutIndividualView(label: nut.label, nutData: nut.nutData)
             }
         }.frame(width: viewModel.screenWidth/2.4, height: viewModel.screenHeight * 0.197)

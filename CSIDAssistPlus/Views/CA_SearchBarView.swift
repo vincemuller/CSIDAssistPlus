@@ -20,34 +20,25 @@ struct CA_SearchBarView: View {
         HStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
-                    .fill(viewModel.expandSearch ? Color.white : Color.clear)
-                    .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
+                    .fill(viewModel.getExpandState() ? Color.white : Color.clear)
+                    .frame(width: viewModel.getExpandState() ? expandedWidth - 10 : compWidth, height: height)
                 RoundedRectangle(cornerRadius: 30)
-                    .stroke(viewModel.expandSearch ? Color.caTurqBlue : Color.gray.opacity(0.2))
-                    .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
+                    .stroke(viewModel.getExpandState() ? Color.caTurqBlue : Color.gray.opacity(0.2))
+                    .frame(width: viewModel.getExpandState() ? expandedWidth - 10 : compWidth, height: height)
                     .overlay(alignment: .leading) {
                         HStack (spacing: 0) {
-                            (viewModel.expandSearch ?
+                            (viewModel.getExpandState() ?
                              Image(systemName: "arrow.left")
                                 .font(.system(size: 20, weight: .semibold))
                                 .offset(x: 7)
                                 .foregroundStyle(Color.caTurqBlue)
                                 .onTapGesture {
                                     withAnimation(.bouncy) {
-                                        viewModel.resetCalendar()
-                                        viewModel.expandSearch = false
+                                        viewModel.searchCompress()
                                         isFocused = false
-                                        viewModel.characterView = 150
-                                        viewModel.activeSearch = false
-                                        viewModel.allFoodsFilter = true
-                                        viewModel.brandedFoodsFilter = false
-                                        viewModel.wholeFoodsFilter = false
-                                        viewModel.searchText = ""
-                                        viewModel.sortFilter = "wholeFood DESC, length(description)"
-                                        viewModel.sortingLabel = "Relevance"
                                     }
                                 } : nil)
-                            (viewModel.expandSearch && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
+                            (viewModel.getExpandState() && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
                         }
                     }
                     .overlay(alignment: .trailing) {
@@ -66,20 +57,17 @@ struct CA_SearchBarView: View {
                 ZStack {
                     TextField("", text: $viewModel.searchText)
                         .foregroundColor(Color.black)
-                        .frame(width: viewModel.expandSearch ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
+                        .frame(width: viewModel.getExpandState() ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
                         .focused($isFocused)
                         .padding(.horizontal, 5)
                         .onSubmit {
-                            viewModel.activeSearch = true
                             viewModel.searchFoods()
                         }
-                    viewModel.expandSearch ? nil :
+                    viewModel.getExpandState() ? nil :
                     Button {
                         withAnimation(.bouncy) {
-                            viewModel.expandSearch = true
-                            viewModel.characterView = 20
+                            viewModel.searchExpand()
                             isFocused = true
-                            viewModel.generateTip()
                         }
                     } label: {
                         Text("SEARCH")
@@ -91,7 +79,7 @@ struct CA_SearchBarView: View {
             }
             
         }
-        (viewModel.expandSearch ? CA_ScopeButtonView(viewModel: viewModel) : nil)
+        (viewModel.getExpandState() ? CA_ScopeButtonView(viewModel: viewModel) : nil)
     }
 }
 

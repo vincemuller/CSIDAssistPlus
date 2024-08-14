@@ -11,7 +11,7 @@ struct HomeScreen: View {
     @StateObject private var viewModel = HomeScreenViewModel()
     
     var body: some View {
-        
+
         GeometryReader(content: { geometry in
             NavigationStack {
                 ZStack {
@@ -22,7 +22,7 @@ struct HomeScreen: View {
                             .padding(.top, 5)
                             .padding(.bottom, 10)
                         CA_TopDashboardView(viewModel: viewModel)
-                            .padding(.bottom, viewModel.activeSearch ? 15 : 10)
+                            .padding(.bottom, viewModel.getActiveSearchState() ? 15 : 10)
                         CA_CalendarDashboardView(viewModel: viewModel)
                             .padding(.bottom, 20)
                         HStack (spacing: 15) {
@@ -33,7 +33,7 @@ struct HomeScreen: View {
                             .padding(.top, 15)
                     }
                     NavigationLink(destination: CA_AddNewMealScreen()) {
-                        viewModel.expandSearch ? nil :
+                        viewModel.getExpandState() ? nil :
                         CA_AddButtonView(viewModel: viewModel)
                     }.offset(y: 350)
                 }
@@ -42,12 +42,13 @@ struct HomeScreen: View {
                     viewModel.screenHeight  = geometry.size.height
                     if databasePointer == nil {databasePointer = CA_DatabaseHelper.getDatabasePointer(databaseName: "CSIDAssistPlusFoodDatabase.db")
                     }
+                    print(CFGetRetainCount(viewModel))
                 }
                 .onDisappear(perform: {
                     viewModel.resetCalendar()
                 })
                 .overlay {
-                    viewModel.inProgress ?
+                    viewModel.getSearchProgress() ?
                     ZStack {
                         Color.black.opacity(0.01)
                             .ignoresSafeArea(.all)
@@ -57,7 +58,7 @@ struct HomeScreen: View {
                     : nil
                 }
                 .overlay (alignment: .topTrailing) {
-                    (viewModel.activeSearch ?
+                    (viewModel.getActiveSearchState() ?
                      HStack {
                         Text(viewModel.sortingLabel)
                             .font(.system(size: 14))

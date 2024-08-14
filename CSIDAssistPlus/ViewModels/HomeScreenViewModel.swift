@@ -8,9 +8,9 @@
 import Foundation
 
 @MainActor final class HomeScreenViewModel: ObservableObject {
-    @Published var expandSearch: Bool = false
-    @Published var activeSearch: Bool = false
-    @Published var inProgress: Bool = false
+    @Published private var expandSearch: Bool = false
+    @Published private var activeSearch: Bool = false
+    @Published private var inProgress: Bool = false
     @Published var characterView: CGFloat = 150
     @Published var searchText: String = ""
     @Published var sortingLabel: String = "Relevance"
@@ -21,17 +21,33 @@ import Foundation
     @Published var isAddActive: Bool = false
     @Published var screenWidth: CGFloat = 0
     @Published var screenHeight: CGFloat = 0
-    @Published var filteredUSDAFoodData: [newUSDAFoodDetails] = []
+    @Published private var filteredUSDAFoodData: [newUSDAFoodDetails] = []
     @Published var savedLists: [String] = ["Safe Foods", "Unsafe Foods", "Favorite Foods"]
     @Published var calendarRange: [Int] = [1,5]
     @Published var dashboardWeek = Date.now
     @Published var selectedDay = Date.now
-    @Published var helpfulTip: String = ""
-    @Published var dailyNuts: [DailyNutData] = [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.5g"), DailyNutData(label: "Total Starches", nutData: "7.5g")]
-    @Published var mealBuilder: [USDANutrientData] = [USDANutrientData(carbs: "5", fiber: "5", netCarbs: "5", totalSugars: "5", totalStarches: "5", totalSugarAlcohols: "5", protein: "5", totalFat: "5", sodium: "5")]
+    @Published private var helpfulTip: String = ""
+    @Published private var dailyNuts: [DailyNutData] = [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.5g"), DailyNutData(label: "Total Starches", nutData: "7.5g")]
+    @Published private var mealBuilder: [USDANutrientData] = [USDANutrientData(carbs: "5", fiber: "5", netCarbs: "5", totalSugars: "5", totalStarches: "5", totalSugarAlcohols: "5", protein: "5", totalFat: "5", sodium: "5")]
+    
+    func getFilteredUSDAFoodData() -> [newUSDAFoodDetails] {
+        return filteredUSDAFoodData
+    }
+    
+    func getDailyNuts() -> [DailyNutData] {
+        return dailyNuts
+    }
+    
+    func getMealBuilder() -> [USDANutrientData] {
+        return mealBuilder
+    }
     
     func generateTip() {
         helpfulTip = CA_HelpfulTipsModel().getTip(index: Int.random(in: 0...5))
+    }
+    
+    func getTip() -> String {
+        return helpfulTip
     }
     
     func resetCalendar() {
@@ -39,8 +55,37 @@ import Foundation
         selectedDay = Date.now
     }
     
+    //Search States and Toggling
+    func getExpandState() -> Bool {
+        return expandSearch
+    }
+    
+    func searchExpand() {
+        expandSearch = true
+        characterView = 20
+        generateTip()
+    }
+    
+    func searchCompress() {
+        expandSearch = false
+        characterView = 150
+        activeSearch = false
+        allFoodsFilter = true
+        brandedFoodsFilter = false
+        wholeFoodsFilter = false
+        searchText = ""
+        sortFilter = "wholeFood DESC, length(description)"
+        sortingLabel = "Relevance"
+        resetCalendar()
+    }
+    
+    func getActiveSearchState() -> Bool {
+        return activeSearch
+    }
+    
     func searchFoods() {
         
+        activeSearch = true
         inProgress.toggle()
         
         var searchTerms = ""
@@ -101,6 +146,10 @@ import Foundation
             }
             
         })
+    }
+    
+    func getSearchProgress() -> Bool {
+        return inProgress
     }
 }
 

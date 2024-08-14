@@ -12,9 +12,9 @@ struct CA_TopDashboardView: View {
     @StateObject var viewModel: HomeScreenViewModel
     
     var body: some View {
-        let height = (viewModel.activeSearch ? 1.5 : viewModel.screenHeight * 0.197)
+        let height = (viewModel.getActiveSearchState() ? 1.5 : viewModel.screenHeight * 0.197)
         let width = viewModel.screenWidth * 0.89
-        let cornerRadius: CGFloat = (viewModel.activeSearch ? 0 : 30)
+        let cornerRadius: CGFloat = (viewModel.getActiveSearchState() ? 0 : 30)
         
         ZStack (alignment: .top) {
             RoundedRectangle(cornerRadius: cornerRadius)
@@ -34,14 +34,14 @@ struct CA_TopDashboardView: View {
                 }
             Image("hipsterAnimal")
                 .resizable()
-                .frame(width: viewModel.screenHeight * 0.1976, height: viewModel.activeSearch ? 0 : viewModel.screenHeight * 0.1976)
+                .frame(width: viewModel.screenHeight * 0.1976, height: viewModel.getActiveSearchState() ? 0 : viewModel.screenHeight * 0.1976)
                 .offset(x: width * 0.23, y: viewModel.characterView)
                 .mask {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: width, height: height)
                 }
-            (viewModel.expandSearch && !viewModel.activeSearch ?
-             Text(viewModel.helpfulTip)
+            (viewModel.getExpandState() && !viewModel.getActiveSearchState() ?
+             Text(viewModel.getTip())
                 .foregroundStyle(.white)
                  .font(.custom(
                      "AmericanTypewriter",

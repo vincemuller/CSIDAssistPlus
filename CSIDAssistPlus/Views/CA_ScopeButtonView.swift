@@ -30,7 +30,7 @@ struct CA_ScopeButtonView: View {
                         viewModel.brandedFoodsFilter = false
                     }
                     
-                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                    if !viewModel.searchText.isEmpty && viewModel.getActiveSearchState() {
                         viewModel.searchFoods()
                     }
                 }
@@ -53,7 +53,7 @@ struct CA_ScopeButtonView: View {
                         viewModel.brandedFoodsFilter = false
                     }
                     
-                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                    if !viewModel.searchText.isEmpty && viewModel.getActiveSearchState() {
                         viewModel.searchFoods()
                     }
                 }
@@ -76,7 +76,7 @@ struct CA_ScopeButtonView: View {
                         viewModel.allFoodsFilter = false
                     }
                     
-                    if !viewModel.searchText.isEmpty && viewModel.activeSearch {
+                    if !viewModel.searchText.isEmpty && viewModel.getActiveSearchState() {
                         viewModel.searchFoods()
                     }
                 }

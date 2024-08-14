@@ -11,7 +11,7 @@ struct CA_HipsterEncouragementView: View {
     @StateObject var viewModel: HomeScreenViewModel
     
     var body: some View {
-        (viewModel.expandSearch ? nil :
+        (viewModel.getExpandState() ? nil :
             HStack (spacing: 20) {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
@@ -20,7 +20,7 @@ struct CA_HipsterEncouragementView: View {
                     .overlay(alignment: .center) {
                         Image("hipsterAnimal")
                             .resizable()
-                            .frame(width: viewModel.screenWidth * 0.33, height: viewModel.activeSearch ? 0 : viewModel.screenWidth * 0.33)
+                            .frame(width: viewModel.screenWidth * 0.33, height: viewModel.getActiveSearchState() ? 0 : viewModel.screenWidth * 0.33)
                             .offset(y: 25)
                             .mask {
                                 RoundedRectangle(cornerRadius: 30)

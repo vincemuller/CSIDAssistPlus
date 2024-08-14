@@ -14,8 +14,8 @@ struct CA_SearchResultsView: View {
     
     var body: some View {
         List {
-            (viewModel.activeSearch && !viewModel.filteredUSDAFoodData.isEmpty ?
-                ForEach((viewModel.filteredUSDAFoodData), id: \.self) {food in
+            (viewModel.getActiveSearchState() ?
+             ForEach((viewModel.getFilteredUSDAFoodData()), id: \.self) {food in
                 CA_SearchResultCellView(viewModel: viewModel, foodItem: food).listRowSeparator(.hidden).listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
             } : nil)
         }
