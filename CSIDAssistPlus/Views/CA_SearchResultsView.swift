@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct CA_SearchResultsView: View {
-    @StateObject var viewModel: HomeScreenViewModel
+    @Binding var filteredUSDAFoodData: [newUSDAFoodDetails]
+    @Binding var foodDetailsPresenting: Bool
+    var sortingLabel: String
+    
     let columns: [GridItem] = [GridItem(.flexible())]
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
     var body: some View {
         List {
-            (viewModel.activeSearch ?
-             ForEach((viewModel.filteredUSDAFoodData), id: \.self) {food in
-                CA_SearchResultCellView(sortingLabel: viewModel.sortingLabel, foodItem: food, screenWidth: screenWidth, screenHeight: screenHeight)
+             ForEach((filteredUSDAFoodData), id: \.self) {food in
+                 CA_SearchResultCellView(sortingLabel: sortingLabel, foodItem: food, screenWidth: screenWidth, screenHeight: screenHeight)
                     .listRowSeparator(.hidden)
                     .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
                     .listRowBackground(Color.white)
                     .onTapGesture {
-                        viewModel.foodDetalsPresenting = true
+                        foodDetailsPresenting = true
                     }
-            } : nil)
+            }
         }
         .listStyle(.plain)
         .environment(\.defaultMinListRowHeight, 0)
@@ -39,6 +41,6 @@ struct CA_SearchResultsView: View {
     }
 }
 
-#Preview {
-    CA_SearchResultsView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
-}
+//#Preview {
+//    CA_SearchResultsView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
+//}

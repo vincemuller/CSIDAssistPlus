@@ -18,19 +18,26 @@ struct HomeScreen: View {
                     Color.white
                         .ignoresSafeArea(.all)
                     VStack {
-                        CA_SearchBarView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                        CA_SearchBarView(expandSearch: $viewModel.expandSearch, searchText: $viewModel.searchText, searchCompress: viewModel.searchCompress, searchExpand: viewModel.searchExpand, searchFoods: viewModel.searchFoods, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.top, 5)
                             .padding(.bottom, 10)
+                        
+                        viewModel.expandSearch ? CA_ScopeButtonView(viewModel: viewModel).padding(.bottom, 10) : nil
+                        
                         CA_TopDashboardView(activeSearch: $viewModel.activeSearch, expandState: $viewModel.expandSearch, characterView: $viewModel.characterView, helpfulTip: $viewModel.helpfulTip, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.bottom, viewModel.activeSearch ? 15 : 10)
+                        
                         viewModel.expandSearch ? nil : CA_CalendarDashboardView(dashboardWeek: $viewModel.dashboardWeek, selectedDay: $viewModel.selectedDay)
                             .padding(.bottom, 20)
+                        
                         viewModel.expandSearch ? nil : HStack (spacing: 15) {
                             CA_HipsterEncouragementView(screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             CA_DailyNutsView(dailyNuts: viewModel.dailyNuts, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                         }
-                        CA_SearchResultsView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
-                            .padding(.top, 15)
+                        
+                        viewModel.activeSearch ? CA_SearchResultsView(filteredUSDAFoodData: $viewModel.filteredUSDAFoodData, foodDetailsPresenting: $viewModel.foodDetalsPresenting, sortingLabel: viewModel.sortingLabel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            .padding(.top, 15) : nil
+                        Spacer()
                     }
                     NavigationLink(destination: CA_AddNewMealScreen()) {
                         viewModel.expandSearch ? nil :
