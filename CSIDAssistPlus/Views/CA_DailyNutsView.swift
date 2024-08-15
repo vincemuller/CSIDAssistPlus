@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CA_DailyNutsView: View {
-    @StateObject var viewModel: HomeScreenViewModel
+//    @StateObject var viewModel: HomeScreenViewModel
+    @State var dailyNuts: [DailyNutData]
+    
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
@@ -16,9 +18,8 @@ struct CA_DailyNutsView: View {
                                GridItem(.flexible())]
     
     var body: some View {
-        viewModel.expandSearch ? nil :
         LazyVGrid(columns: columns) {
-            ForEach(viewModel.dailyNuts) { nut in
+            ForEach(dailyNuts) { nut in
                 CA_DailyNutIndividualView(label: nut.label, nutData: nut.nutData)
             }
         }.frame(width: screenWidth/2.4, height: screenHeight * 0.197)
@@ -26,5 +27,7 @@ struct CA_DailyNutsView: View {
 }
 
 #Preview {
-    CA_DailyNutsView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
+    var dailyNuts: [DailyNutData] = [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.5g"), DailyNutData(label: "Total Starches", nutData: "7.5g")]
+
+    CA_DailyNutsView(dailyNuts: dailyNuts, screenWidth: 393, screenHeight: 759)
 }

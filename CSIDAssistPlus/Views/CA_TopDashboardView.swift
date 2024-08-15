@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct CA_TopDashboardView: View {
-    @StateObject var viewModel: HomeScreenViewModel
+//    @StateObject var viewModel: HomeScreenViewModel
+    @Binding var activeSearch: Bool
+    @Binding var expandState: Bool
+    @Binding var characterView: CGFloat
+    @Binding var helpfulTip: String
+    
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
+    //activeSearch, characterView, expandSearch, helpfulTip
+    
     var body: some View {
-        let height = (viewModel.activeSearch ? 1.5 : screenHeight * 0.197)
+        let height = (activeSearch ? 1.5 : screenHeight * 0.197)
         let width = screenWidth * 0.89
-        let cornerRadius: CGFloat = (viewModel.activeSearch ? 0 : 30)
+        let cornerRadius: CGFloat = (activeSearch ? 0 : 30)
         
         ZStack (alignment: .top) {
             RoundedRectangle(cornerRadius: cornerRadius)
@@ -35,14 +42,14 @@ struct CA_TopDashboardView: View {
                 }
             Image("hipsterAnimal")
                 .resizable()
-                .frame(width: screenHeight * 0.1976, height: viewModel.activeSearch ? 0 : screenHeight * 0.1976)
-                .offset(x: width * 0.23, y: viewModel.characterView)
+                .frame(width: screenHeight * 0.1976, height: activeSearch ? 0 : screenHeight * 0.1976)
+                .offset(x: width * 0.23, y: characterView)
                 .mask {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: width, height: height)
                 }
-            (viewModel.expandSearch && !viewModel.activeSearch ?
-             Text(viewModel.helpfulTip)
+            (expandState && !activeSearch ?
+             Text(helpfulTip)
                 .foregroundStyle(.white)
                  .font(.custom(
                      "AmericanTypewriter",
@@ -57,5 +64,17 @@ struct CA_TopDashboardView: View {
 
 
 #Preview {
-    CA_TopDashboardView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
+    struct Preview: View {
+        @State var activeSearch = false
+        @State var expandState = false
+        @State var characterView = CGFloat(150)
+        @State var helpfulTip = "Use filters to search off Whole Foods only"
+        
+        var body: some View {
+            CA_TopDashboardView(activeSearch: $activeSearch, expandState: $expandState, characterView: $characterView, helpfulTip: $helpfulTip, screenWidth: 393, screenHeight: 759)
+        }
+    }
+
+    return Preview()
+
 }

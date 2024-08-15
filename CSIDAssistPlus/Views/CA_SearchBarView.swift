@@ -69,10 +69,8 @@ struct CA_SearchBarView: View {
                         }
                     viewModel.expandSearch ? nil :
                     Button {
-                        withAnimation(.bouncy) {
-                            viewModel.searchExpand()
-                            isFocused = true
-                        }
+                        viewModel.searchExpand()
+                        isFocused = true
                     } label: {
                         Text("SEARCH")
                             .foregroundStyle(Color.black).opacity(0.3)

@@ -21,13 +21,13 @@ struct HomeScreen: View {
                         CA_SearchBarView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.top, 5)
                             .padding(.bottom, 10)
-                        CA_TopDashboardView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                        CA_TopDashboardView(activeSearch: $viewModel.activeSearch, expandState: $viewModel.expandSearch, characterView: $viewModel.characterView, helpfulTip: $viewModel.helpfulTip, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.bottom, viewModel.activeSearch ? 15 : 10)
-                        CA_CalendarDashboardView(viewModel: viewModel)
+                        viewModel.expandSearch ? nil : CA_CalendarDashboardView(dashboardWeek: $viewModel.dashboardWeek, selectedDay: $viewModel.selectedDay)
                             .padding(.bottom, 20)
-                        HStack (spacing: 15) {
-                            CA_HipsterEncouragementView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
-                            CA_DailyNutsView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                        viewModel.expandSearch ? nil : HStack (spacing: 15) {
+                            CA_HipsterEncouragementView(screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            CA_DailyNutsView(dailyNuts: viewModel.dailyNuts, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                         }
                         CA_SearchResultsView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.top, 15)

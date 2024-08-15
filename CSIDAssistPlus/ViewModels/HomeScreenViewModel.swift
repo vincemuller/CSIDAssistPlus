@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor final class HomeScreenViewModel: ObservableObject {
     @Published var foodDetalsPresenting: Bool = false
@@ -40,9 +41,11 @@ import Foundation
 
     
     func searchExpand() {
-        expandSearch = true
-        characterView = 20
-        generateTip()
+        withAnimation(.bouncy) {
+            expandSearch = true
+            characterView = 20
+            generateTip()
+        }
     }
     
     func searchCompress() {
