@@ -12,22 +12,25 @@ struct CA_SearchBarView: View {
     @StateObject var viewModel: HomeScreenViewModel
     @FocusState private var isFocused: Bool
     
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
+    
     var body: some View {
-        let compWidth = viewModel.screenWidth * 0.25
-        let expandedWidth = viewModel.screenWidth * 0.90
-        let height = viewModel.screenHeight * 0.05
+        let compWidth = screenWidth * 0.25
+        let expandedWidth = screenWidth * 0.90
+        let height = screenHeight * 0.05
         
         HStack {
             ZStack {
                 RoundedRectangle(cornerRadius: 30)
-                    .fill(viewModel.getExpandState() ? Color.white : Color.clear)
-                    .frame(width: viewModel.getExpandState() ? expandedWidth - 10 : compWidth, height: height)
+                    .fill(viewModel.expandSearch ? Color.white : Color.clear)
+                    .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
                 RoundedRectangle(cornerRadius: 30)
-                    .stroke(viewModel.getExpandState() ? Color.caTurqBlue : Color.gray.opacity(0.2))
-                    .frame(width: viewModel.getExpandState() ? expandedWidth - 10 : compWidth, height: height)
+                    .stroke(viewModel.expandSearch ? Color.caTurqBlue : Color.gray.opacity(0.2))
+                    .frame(width: viewModel.expandSearch ? expandedWidth - 10 : compWidth, height: height)
                     .overlay(alignment: .leading) {
                         HStack (spacing: 0) {
-                            (viewModel.getExpandState() ?
+                            (viewModel.expandSearch ?
                              Image(systemName: "arrow.left")
                                 .font(.system(size: 20, weight: .semibold))
                                 .offset(x: 7)
@@ -38,7 +41,7 @@ struct CA_SearchBarView: View {
                                         isFocused = false
                                     }
                                 } : nil)
-                            (viewModel.getExpandState() && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
+                            (viewModel.expandSearch && viewModel.searchText.isEmpty ? CA_CarouselView().offset(x: 10) : nil)
                         }
                     }
                     .overlay(alignment: .trailing) {
@@ -57,14 +60,14 @@ struct CA_SearchBarView: View {
                 ZStack {
                     TextField("", text: $viewModel.searchText)
                         .foregroundColor(Color.black)
-                        .frame(width: viewModel.getExpandState() ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
+                        .frame(width: viewModel.expandSearch ? expandedWidth - 75 : compWidth, height: height, alignment: .leading)
                         .focused($isFocused)
                         .padding(.horizontal, 5)
                         .onSubmit {
                             viewModel.searchFoods()
                             print(CFGetRetainCount(viewModel))
                         }
-                    viewModel.getExpandState() ? nil :
+                    viewModel.expandSearch ? nil :
                     Button {
                         withAnimation(.bouncy) {
                             viewModel.searchExpand()
@@ -80,10 +83,10 @@ struct CA_SearchBarView: View {
             }
             
         }
-        (viewModel.getExpandState() ? CA_ScopeButtonView(viewModel: viewModel) : nil)
+        (viewModel.expandSearch ? CA_ScopeButtonView(viewModel: viewModel) : nil)
     }
 }
 
 #Preview {
-    CA_SearchBarView(viewModel: HomeScreenViewModel())
+    CA_SearchBarView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
 }

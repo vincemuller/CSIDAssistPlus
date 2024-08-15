@@ -19,7 +19,7 @@ struct CA_CalendarDashboardView: View {
     @StateObject var viewModel: HomeScreenViewModel
     
     var body: some View {
-        (viewModel.getExpandState() ? nil :
+        (viewModel.expandSearch ? nil :
         HStack {
             LazyVGrid(columns: columns) {
                 Image(systemName: "chevron.left")

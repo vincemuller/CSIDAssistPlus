@@ -18,28 +18,26 @@ struct HomeScreen: View {
                     Color.white
                         .ignoresSafeArea(.all)
                     VStack {
-                        CA_SearchBarView(viewModel: viewModel)
+                        CA_SearchBarView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.top, 5)
                             .padding(.bottom, 10)
-                        CA_TopDashboardView(viewModel: viewModel)
-                            .padding(.bottom, viewModel.getActiveSearchState() ? 15 : 10)
+                        CA_TopDashboardView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            .padding(.bottom, viewModel.activeSearch ? 15 : 10)
                         CA_CalendarDashboardView(viewModel: viewModel)
                             .padding(.bottom, 20)
                         HStack (spacing: 15) {
-                            CA_HipsterEncouragementView(viewModel: viewModel)
-                            CA_DailyNutsView(viewModel: viewModel)
+                            CA_HipsterEncouragementView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                            CA_DailyNutsView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                         }
-                        CA_SearchResultsView(viewModel: viewModel)
+                        CA_SearchResultsView(viewModel: viewModel, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             .padding(.top, 15)
                     }
                     NavigationLink(destination: CA_AddNewMealScreen()) {
-                        viewModel.getExpandState() ? nil :
+                        viewModel.expandSearch ? nil :
                         CA_AddButtonView(viewModel: viewModel)
                     }.offset(y: 350)
                 }
                 .onAppear {
-                    viewModel.screenWidth   = geometry.size.width
-                    viewModel.screenHeight  = geometry.size.height
                     if databasePointer == nil {databasePointer = CA_DatabaseHelper.getDatabasePointer(databaseName: "CSIDAssistPlusFoodDatabase.db")
                     }
                     print(CFGetRetainCount(viewModel))
@@ -52,19 +50,19 @@ struct HomeScreen: View {
                     ZStack {
                         Color.black.opacity(0.01)
                             .ignoresSafeArea(.all)
-                        CA_ProgressBarView()
+                        CA_ProgressBarView(screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                         
                     }
                     : nil
                 }
                 .overlay (alignment: .topTrailing) {
-                    (viewModel.getActiveSearchState() ?
+                    (viewModel.activeSearch ?
                      HStack {
                         Text(viewModel.sortingLabel)
                             .font(.system(size: 14))
                             .foregroundStyle(.caTurqBlue)
                         CA_SortDropDownList(viewModel: viewModel)
-                    }.offset(x: -(viewModel.screenWidth * 0.05089059), y: viewModel.screenHeight * 0.16) : nil)
+                    }.offset(x: -(geometry.size.width * 0.05089059), y: geometry.size.height * 0.16) : nil)
                 }
                 .sheet(isPresented: $viewModel.foodDetalsPresenting, onDismiss: {
                     viewModel.foodDetalsPresenting = false

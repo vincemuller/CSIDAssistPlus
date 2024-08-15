@@ -9,20 +9,22 @@ import SwiftUI
 
 struct CA_DailyNutsView: View {
     @StateObject var viewModel: HomeScreenViewModel
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
     
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible())]
     
     var body: some View {
-        viewModel.getExpandState() ? nil :
+        viewModel.expandSearch ? nil :
         LazyVGrid(columns: columns) {
-            ForEach(viewModel.getDailyNuts()) { nut in
+            ForEach(viewModel.dailyNuts) { nut in
                 CA_DailyNutIndividualView(label: nut.label, nutData: nut.nutData)
             }
-        }.frame(width: viewModel.screenWidth/2.4, height: viewModel.screenHeight * 0.197)
+        }.frame(width: screenWidth/2.4, height: screenHeight * 0.197)
     }
 }
 
 #Preview {
-    CA_DailyNutsView(viewModel: HomeScreenViewModel())
+    CA_DailyNutsView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
 }

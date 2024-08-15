@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct CA_TopDashboardView: View {
-    
     @StateObject var viewModel: HomeScreenViewModel
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
     
     var body: some View {
-        let height = (viewModel.getActiveSearchState() ? 1.5 : viewModel.screenHeight * 0.197)
-        let width = viewModel.screenWidth * 0.89
-        let cornerRadius: CGFloat = (viewModel.getActiveSearchState() ? 0 : 30)
+        let height = (viewModel.activeSearch ? 1.5 : screenHeight * 0.197)
+        let width = screenWidth * 0.89
+        let cornerRadius: CGFloat = (viewModel.activeSearch ? 0 : 30)
         
         ZStack (alignment: .top) {
             RoundedRectangle(cornerRadius: cornerRadius)
@@ -34,21 +35,21 @@ struct CA_TopDashboardView: View {
                 }
             Image("hipsterAnimal")
                 .resizable()
-                .frame(width: viewModel.screenHeight * 0.1976, height: viewModel.getActiveSearchState() ? 0 : viewModel.screenHeight * 0.1976)
+                .frame(width: screenHeight * 0.1976, height: viewModel.activeSearch ? 0 : screenHeight * 0.1976)
                 .offset(x: width * 0.23, y: viewModel.characterView)
                 .mask {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(width: width, height: height)
                 }
-            (viewModel.getExpandState() && !viewModel.getActiveSearchState() ?
-             Text(viewModel.getTip())
+            (viewModel.expandSearch && !viewModel.activeSearch ?
+             Text(viewModel.helpfulTip)
                 .foregroundStyle(.white)
                  .font(.custom(
                      "AmericanTypewriter",
-                     fixedSize: viewModel.screenHeight * 0.021))
+                     fixedSize: screenHeight * 0.021))
                  .frame(width: 145)
                  .multilineTextAlignment(.center)
-                 .offset(x: -85, y: viewModel.screenHeight * 0.0527)
+                 .offset(x: -85, y: screenHeight * 0.0527)
              : nil)
         }
     }
@@ -56,5 +57,5 @@ struct CA_TopDashboardView: View {
 
 
 #Preview {
-    CA_TopDashboardView(viewModel: HomeScreenViewModel())
+    CA_TopDashboardView(viewModel: HomeScreenViewModel(), screenWidth: 393, screenHeight: 759)
 }

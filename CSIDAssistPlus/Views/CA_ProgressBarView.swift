@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct CA_ProgressBarView: View {
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
     
     var body: some View {
         Image("CSIDLogoTurqBlue")
             .resizable()
-            .frame(width: 200, height: 200)
+            .frame(width: screenWidth * 0.50890585, height: screenWidth * 0.50890585)
             .opacity(0.3)
     }
 }
 
 #Preview {
-    CA_ProgressBarView()
+    CA_ProgressBarView(screenWidth: 393, screenHeight: 759)
 }
