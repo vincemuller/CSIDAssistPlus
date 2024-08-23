@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct CA_SortDropDownList: View {
-    var viewModel: HomeScreenViewModel
     @State var sortingOptions = ["Relevance", "Carbs (Low to High)", "Carbs (High to Low)", "Sugars (Low to High)", "Sugars (High to Low)", "Starches (Low to High)", "Starches (High to Low)"]
+    @Binding var sortingLabel: String
+    
+    var searchFoods: () -> Void
     
     var body: some View {
         Menu {
             ForEach(sortingOptions, id: \.self){ option in
-                Button(action: {self.viewModel.sortingLabel = option; self.viewModel.searchFoods()}, label: {
+                Button(action: {self.sortingLabel = option; self.searchFoods()}, label: {
                     Text(option)
                         .font(.system(size: 12))
                         .foregroundStyle(.caTurqBlue)

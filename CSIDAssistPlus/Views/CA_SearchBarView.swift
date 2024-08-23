@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 struct CA_SearchBarView: View {
-//    @StateObject var viewModel: HomeScreenViewModel
+
     @FocusState private var isFocused: Bool
     @Binding var expandSearch: Bool
     @Binding var searchText: String
@@ -71,6 +71,7 @@ struct CA_SearchBarView: View {
                         .padding(.horizontal, 5)
                         .onSubmit {
                             searchFoods()
+                            isFocused = false
 //                            print(CFGetRetainCount(viewModel))
                         }
                     expandSearch ? nil :

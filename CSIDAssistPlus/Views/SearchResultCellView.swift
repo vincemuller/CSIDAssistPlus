@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct CA_SearchResultCellView: View {
+    
+    @Binding var foodDetailsPresenting: Bool
+    @Namespace var namespace
+    
     var sortingLabel: String
     var foodItem: newUSDAFoodDetails
     var screenWidth: CGFloat
     var screenHeight: CGFloat
-    
-    @Namespace var namespace
     
     var body: some View {
         let width = screenWidth
@@ -84,6 +86,9 @@ struct CA_SearchResultCellView: View {
                     .foregroundColor(.caYellow)
                     .padding(.all, 10)
             }
+        }
+        .onTapGesture {
+            foodDetailsPresenting = true
         }
     }
 }

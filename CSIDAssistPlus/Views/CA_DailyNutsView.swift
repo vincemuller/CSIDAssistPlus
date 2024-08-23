@@ -27,7 +27,5 @@ struct CA_DailyNutsView: View {
 }
 
 #Preview {
-    var dailyNuts: [DailyNutData] = [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.5g"), DailyNutData(label: "Total Starches", nutData: "7.5g")]
-
-    CA_DailyNutsView(dailyNuts: dailyNuts, screenWidth: 393, screenHeight: 759)
+    CA_DailyNutsView(dailyNuts: [DailyNutData(label: "Total Carbs", nutData: "25.0g"),DailyNutData(label: "Net Carbs", nutData: "20.0g"),DailyNutData(label: "Total Sugars", nutData: "12.0g"),DailyNutData(label: "Total Starches", nutData: "8.0g")], screenWidth: 393, screenHeight: 759)
 }

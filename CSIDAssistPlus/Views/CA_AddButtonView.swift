@@ -10,8 +10,6 @@ import SwiftUI
 
 struct CA_AddButtonView: View {
     
-    @StateObject var viewModel: HomeScreenViewModel
-    
     var body: some View {
         ZStack {
             Image(systemName: "fork.knife.circle")
@@ -22,5 +20,5 @@ struct CA_AddButtonView: View {
 }
 
 #Preview {
-    CA_AddButtonView(viewModel: HomeScreenViewModel())
+    CA_AddButtonView()
 }

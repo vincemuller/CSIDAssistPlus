@@ -25,21 +25,20 @@ struct CA_TopDashboardView: View {
         let cornerRadius: CGFloat = (activeSearch ? 0 : 30)
         
         ZStack (alignment: .top) {
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(Color.caTurqBlue)
-                .frame(width: width, height: height)
-                .overlay(alignment: .center) {
-                    Image("csidAssistLogoWhite")
-                        .resizable()
-                        .frame(width: 350, height: 350)
-                        .rotationEffect(.degrees(25))
-                        .offset(x: 110)
-                        .mask {
-                            RoundedRectangle(cornerRadius: 30)
-                                .frame(width: width, height: height)
-                        }
-                        .opacity(0.2)
-                }
+            ZStack {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(Color.caTurqBlue)
+                    .frame(width: width, height: height)
+                Image("csidAssistLogoWhite")
+                    .resizable()
+                    .frame(width: 200, height: 144)
+                    .offset(x: 90)
+                    .opacity(0.2)
+                    .mask {
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .frame(width: width, height: height)
+                    }
+            }
             Image("hipsterAnimal")
                 .resizable()
                 .frame(width: screenHeight * 0.1976, height: activeSearch ? 0 : screenHeight * 0.1976)
